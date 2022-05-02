@@ -1,0 +1,1 @@
+(()=>{"use strict";new function(i,t,e){this.title="Run",this.dueDate="5/1/2022",this.priority="High"}("Run","5/1/2022","High")})();
