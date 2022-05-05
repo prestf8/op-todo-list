@@ -16,7 +16,17 @@
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_task_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/task.js */ \"./src/modules/task.js\");\n\r\n\r\nconst taskOne = new _modules_task_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"](\"Run\", \"5/1/2022\", \"High\");\r\n\r\nconsole.log(taskOne);\r\n\n\n//# sourceURL=webpack://op-todo-list/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_task_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/task.js */ \"./src/modules/task.js\");\n/* harmony import */ var _modules_dom_modules_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/dom-modules.js */ \"./src/modules/dom-modules.js\");\n\r\n\r\nconst addProjectBtn = document.getElementById(\"add-project-btn\");\r\n\r\naddProjectBtn.addEventListener(\"click\", function () {\r\n  (0,_modules_dom_modules_js__WEBPACK_IMPORTED_MODULE_1__.addTaskToDom)(new _modules_task_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"](\"Run\", \"5/1/2022\", \"High\"));\r\n});\r\n\n\n//# sourceURL=webpack://op-todo-list/./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/modules/dom-modules.js":
+/*!************************************!*\
+  !*** ./src/modules/dom-modules.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"addTaskToDom\": () => (/* binding */ addTaskToDom)\n/* harmony export */ });\nfunction addTaskToDom(task) {\r\n  const div = document.createElement(\"div\");\r\n  const newContent = document.createTextNode(task.title);\r\n  div.appendChild(newContent);\r\n  document.body.appendChild(div);\r\n}\r\n\r\n\r\n\n\n//# sourceURL=webpack://op-todo-list/./src/modules/dom-modules.js?");
 
 /***/ }),
 

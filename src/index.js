@@ -1,5 +1,7 @@
 import Task from "./modules/task.js";
+import { addTaskToDom } from "./modules/dom-modules.js";
+const addProjectBtn = document.getElementById("add-project-btn");
 
-const taskOne = new Task("Run", "5/1/2022", "High");
-
-console.log(taskOne);
+addProjectBtn.addEventListener("click", function () {
+  addTaskToDom(new Task("Run", "5/1/2022", "High"));
+});
