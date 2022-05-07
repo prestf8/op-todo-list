@@ -8,3 +8,22 @@
 body {
   background: gray;
 }
+
+#create-task-interface {
+  background: red;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2rem;
+}
+
+.create-task-interface-div {
+  margin-top: 1rem;
+}
+
+.create-task-interface-add-btn {
+  padding: 1rem 1.5rem;
+  font-size: 1.5rem;
+  border: 2px solid orange;
+}
