@@ -2,8 +2,14 @@ import Task from "./modules/task.js";
 import { addTaskToDom } from "./modules/dom-modules.js";
 import "./stylesheets/styles.css";
 
-const addProjectBtn = document.getElementById("add-project-btn");
+const createTaskBtn = document.getElementById("create-task-btn");
+const titleInput = document.getElementById("title-input");
+const dueDateInput = document.getElementById("due-date-input");
 
-addProjectBtn.addEventListener("click", function () {
-  addTaskToDom(new Task("Run", "5/1/2022", "High"));
+const priorityInputs = document.querySelectorAll(
+  "create-task-interface-priority-div > input[type=text]"
+);
+
+createTaskBtn.addEventListener("click", function () {
+  addTaskToDom(titleInput.value, dueDateInput.value, priorityInputs.value);
 });
