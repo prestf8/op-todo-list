@@ -9,6 +9,10 @@ body {
   background: gray;
 }
 
+#title-input {
+  height: 1.5rem;
+}
+
 #create-task-interface {
   background: red;
   position: absolute;
@@ -18,12 +22,26 @@ body {
   padding: 2rem;
 }
 
+#due-date-input {
+  height: 1.5rem;
+}
+
 .create-task-interface-div {
   margin-top: 1rem;
 }
 
+/* create task radio buttons */
+.create-task-interface-priority-div > input[type="radio"] {
+  height: 25px;
+  width: 25px;
+  background-color: green;
+}
+
 .create-task-interface-add-btn {
-  padding: 1rem 1.5rem;
+  padding: 0.5rem 1.5rem;
+  margin-top: 1rem;
   font-size: 1.5rem;
-  border: 2px solid orange;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
 }
