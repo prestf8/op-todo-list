@@ -1,5 +1,4 @@
-import Task from "./modules/task.js";
-import { addTaskToDom } from "./modules/dom-modules.js";
+import domModules from "./modules/dom-modules.js";
 import "./stylesheets/styles.css";
 
 const createTaskBtn = document.getElementById("create-task-btn");
@@ -11,5 +10,9 @@ const priorityInputs = document.querySelectorAll(
 );
 
 createTaskBtn.addEventListener("click", function () {
-  addTaskToDom(titleInput.value, dueDateInput.value, priorityInputs.value);
+  domModules.addTaskToDom(
+    titleInput.value,
+    dueDateInput.value,
+    priorityInputs.value
+  );
 });
