@@ -5,25 +5,25 @@ const createTaskBtn = document.getElementById("create-task-btn");
 const titleInput = document.getElementById("title-input");
 const dueDateInput = document.getElementById("due-date-input");
 
-// not used yet
-const priorityInputs = document.querySelectorAll(
-  "create-task-interface-priority-div > input[type=text]"
-);
+const priorityInputs = [...document.querySelectorAll('input[name="priority"]')];
 
-const selectedPriorityInput = document.querySelectorAll(
-  'input[name="priority"]'
-);
+function selectPriorityInput() {
+  const selectedPriorityInput = priorityInputs.filter((priorityInput) => {
+    return priorityInput.checked;
+  });
+  if (!selectedPriorityInput) return;
+  console.log(selectedPriorityInput);
+  return selectedPriorityInput;
+}
 
 createTaskBtn.addEventListener("click", function () {
-  if (!selectedPriorityInput) {
-    console.log("g");
-    return;
-  }
-  console.log(selectedPriorityInput);
+  const priorityInput = selectPriorityInput();
+
+  console.log(priorityInput[0]);
 
   domModules.addTaskToDom(
     titleInput.value,
     dueDateInput.value,
-    selectedPriorityInput.value
+    priorityInput[0].value
   );
 });
