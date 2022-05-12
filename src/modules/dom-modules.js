@@ -1,4 +1,5 @@
 import Task from "./task.js";
+import MainStorage from "./mainStorage.js";
 
 const domModules = (function () {
   "use strict";
@@ -9,6 +10,8 @@ const domModules = (function () {
 
   function addTaskToDom(title, dueDate, priority) {
     const task = _createTask(title, dueDate, priority);
+
+    MainStorage.addTaskToStorage(task); // Adds task to main storage
 
     const taskEle = document.createElement("div");
     const titleTextNode = document.createTextNode(title);
