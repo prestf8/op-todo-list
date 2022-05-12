@@ -10,11 +10,17 @@ const priorityInputs = document.querySelectorAll(
   "create-task-interface-priority-div > input[type=text]"
 );
 
-const selectedPriorityInput = document.querySelector(
-  "input[name='priority']:checked"
+const selectedPriorityInput = document.querySelectorAll(
+  'input[name="priority"]'
 );
 
 createTaskBtn.addEventListener("click", function () {
+  if (!selectedPriorityInput) {
+    console.log("g");
+    return;
+  }
+  console.log(selectedPriorityInput);
+
   domModules.addTaskToDom(
     titleInput.value,
     dueDateInput.value,
