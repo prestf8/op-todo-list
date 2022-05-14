@@ -41,7 +41,10 @@ const domModules = (function () {
     taskEle.appendChild(taskTitleLabel); // main div appending title
     taskEle.appendChild(taskDueDateLabel);
     taskEle.appendChild(taskPriorityLabel);
+
     document.body.appendChild(taskEle);
+
+    DynamicStyling.styleTask(TASK_ID); // Style task after task is added to DOM
   }
 
   return {
