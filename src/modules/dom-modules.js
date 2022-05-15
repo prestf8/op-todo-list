@@ -1,54 +1,49 @@
 import Task from "./task.js";
 import MainStorage from "./mainStorage.js";
 import DynamicStyling from "./dynamicStyling.js";
-import { v4 as uuidv4 } from "uuid";
 
 // deleting code: if project === "Home" delete project from home; else delete project from home and from that project
 
 const domModules = (function () {
   "use strict";
 
-  function _createTask(title, dueDate, priority) {
-    return new Task(title, dueDate, priority);
+  function _createTask(title, dueDate, priority, id) {
+    return new Task(title, dueDate, priority, id);
   }
 
-  function addTask(title, dueDate, priority) {
-    const task = _createTask(title, dueDate, priority);
+  function addTask(title, dueDate, priority, id) {
+    const task = _createTask(title, dueDate, priority, id);
     MainStorage.addTaskToStorage(task); // Adds task to main storage
     addTaskToDom(title, dueDate, priority);
   }
 
+  function setupLabel(text) {
+    const label = document.createElement("p");
+    const textNode = document.createTextNode(text);
+    label.appendChild(textNode);
+    return label;
+  }
+
   function addTaskToDom(title, dueDate, priority) {
-    const TASK_ID = uuidv4();
     const taskEle = document.createElement("div"); // div element that is going to be appended to DOM
-    taskEle.setAttribute("data-task-id", TASK_ID);
 
-    // title
-    const taskTitleLabel = document.createElement("p");
-    const titleTextNode = document.createTextNode(title);
-    taskTitleLabel.appendChild(titleTextNode);
-
-    // due Date
-    const taskDueDateLabel = document.createElement("p");
-    const dueDateTextNode = document.createTextNode(dueDate);
-    taskDueDateLabel.appendChild(dueDateTextNode);
-
-    // priority
-    const taskPriorityLabel = document.createElement("p");
-    const priorityTextNode = document.createTextNode(priority);
-    taskPriorityLabel.appendChild(priorityTextNode);
-
-    taskEle.appendChild(taskTitleLabel); // main div appending title
-    taskEle.appendChild(taskDueDateLabel);
-    taskEle.appendChild(taskPriorityLabel);
+    const titleLabel = setupLabel(title);
+    const dueDateLabel = setupLabel(dueDate);
+    const priorityLabel = setupLabel(priority);
+    taskEle.appendChild(titleLabel); // main div appending title
+    taskEle.appendChild(dueDateLabel);
+    taskEle.appendChild(priorityLabel);
 
     document.body.appendChild(taskEle);
 
-    DynamicStyling.styleTask(TASK_ID); // Style task after task is added to DOM
+    const storage1 = MainStorage.getStorage();
+    console.log(storage1[0].getId());
+
+    // DynamicStyling.styleTask(TASK_ID); // Style task after task is added to DOM
   }
 
   return {
-    addTaskToDom,
+    addTask,
   };
 })();
 

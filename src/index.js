@@ -1,5 +1,8 @@
 import domModules from "./modules/dom-modules.js";
 import "./stylesheets/styles.css";
+import { v4 as uuidv4 } from "uuid";
+
+// https://zakarya-mks.github.io/ToDoers/
 
 const createTaskBtn = document.getElementById("create-task-btn");
 const titleInput = document.getElementById("title-input");
@@ -18,11 +21,13 @@ function selectPriorityInput() {
 
 createTaskBtn.addEventListener("click", function () {
   if (!titleInput.value) return;
-  const priorityInput = selectPriorityInput();
+  const TASK_ID = uuidv4();
+  const priorityInput = selectPriorityInput()[0];
 
-  domModules.addTaskToDom(
+  domModules.addTask(
     titleInput.value,
     dueDateInput.value,
-    priorityInput[0].value
+    priorityInput.value,
+    TASK_ID
   );
 });
