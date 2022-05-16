@@ -36,8 +36,6 @@ const domModules = (function () {
 
     document.body.appendChild(taskEle);
 
-    const storage1 = MainStorage.getStorage();
-    console.log(storage1[0].getId());
 
     // DynamicStyling.styleTask(TASK_ID); // Style task after task is added to DOM
   }

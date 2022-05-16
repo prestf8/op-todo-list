@@ -14,15 +14,15 @@ function selectPriorityInput() {
   const selectedPriorityInput = priorityInputs.filter((priorityInput) => {
     return priorityInput.checked;
   });
-  if (!selectedPriorityInput) return;
-  console.log(selectedPriorityInput);
-  return selectedPriorityInput;
+  if (!selectedPriorityInput[0]) return;
+  return selectedPriorityInput[0];
 }
 
 createTaskBtn.addEventListener("click", function () {
-  if (!titleInput.value) return;
-  const TASK_ID = uuidv4();
-  const priorityInput = selectPriorityInput()[0];
+  const priorityInput = selectPriorityInput();
+
+  if (!titleInput.value || !priorityInput) return;
+  let TASK_ID = uuidv4();
 
   domModules.addTask(
     titleInput.value,
