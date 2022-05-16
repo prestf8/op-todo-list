@@ -1,11 +1,11 @@
 function Task(title, dueDate, priority, id) {
-  this.title = title;
-  this.dueDate = dueDate;
-  this.priority = priority;
-  this.id = id;
+  this._title = title;
+  this._dueDate = dueDate;
+  this._priority = priority;
+  this._id = id;
 
   this.getId = function () {
-    return this.id;
+    return this._id;
   };
 }
 

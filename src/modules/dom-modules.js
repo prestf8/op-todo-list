@@ -14,13 +14,14 @@ const domModules = (function () {
   function addTask(title, dueDate, priority, id) {
     const task = _createTask(title, dueDate, priority, id);
     MainStorage.addTaskToStorage(task); // Adds task to main storage
-    addTaskToDom(title, dueDate, priority, id);
+    _addTaskToDom(title, dueDate, priority, id);
   }
 
   function setupLabel(text) {
     const label = document.createElement("p");
     const textNode = document.createTextNode(text);
     label.appendChild(textNode);
+    label.className = "task-label";
     return label;
   }
 
@@ -31,10 +32,15 @@ const domModules = (function () {
     deleteTaskButton.addEventListener("click", function () {
       MainStorage.deleteTask(id);
     });
+    deleteTaskButton.className = "task-delete-btn";
     return deleteTaskButton;
   }
 
-  function addTaskToDom(title, dueDate, priority, id) {
+  function _styleTask(task) {
+    querySelectorAll()
+  }
+
+  function _addTaskToDom(title, dueDate, priority, id) {
     const taskEle = document.createElement("div"); // div element that is going to be appended to DOM
 
     const titleLabel = setupLabel(title);
@@ -47,9 +53,9 @@ const domModules = (function () {
     const taskDeleteBtn = _createTaskDeleteBtn(id);
     taskEle.appendChild(taskDeleteBtn);
 
-    document.body.appendChild(taskEle);
+    console.log(taskEle);
 
-    // DynamicStyling.styleTask(TASK_ID); // Style task after task is added to DOM
+    document.body.appendChild(taskEle);
   }
 
   return {
