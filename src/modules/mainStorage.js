@@ -10,7 +10,17 @@ const MainStorage = (function () {
     _storage.push(task);
   }
 
-  return { getStorage, addTaskToStorage };
+  function deleteTask(id) {
+    let storage = MainStorage.getStorage();
+    console.log("id: " + id);
+    _storage = _storage.filter((task) => {
+      console.log("taskid: " + task.getId());
+      return task.getId() !== id;
+    });
+    console.log(_storage);
+  }
+
+  return { getStorage, addTaskToStorage, deleteTask };
 })();
 
 export default MainStorage;
