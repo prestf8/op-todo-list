@@ -36,8 +36,15 @@ const domModules = (function () {
     return deleteTaskButton;
   }
 
-  function _styleTask(task) {
-    querySelectorAll()
+  function _styleTask(id) {
+    let taskContent = document.querySelectorAll(`div[data-id='${id}'] *`);
+    for (let i = 0; i < taskContent.length; i++) {
+      if ((taskContent[i].className = "task-label")) {
+        console.log("task label");
+      } else {
+        console.log("task delete btn");
+      }
+    }
   }
 
   function _addTaskToDom(title, dueDate, priority, id) {
@@ -46,14 +53,19 @@ const domModules = (function () {
     const titleLabel = setupLabel(title);
     const dueDateLabel = setupLabel(dueDate);
     const priorityLabel = setupLabel(priority);
+    const taskDeleteBtn = _createTaskDeleteBtn(id);
+
+    _styleTask(id); // style task by selecting element from dom by its id
+
+    // appending content of task to the task itself
     taskEle.appendChild(titleLabel); // main div appending title
     taskEle.appendChild(dueDateLabel);
     taskEle.appendChild(priorityLabel);
-
-    const taskDeleteBtn = _createTaskDeleteBtn(id);
     taskEle.appendChild(taskDeleteBtn);
 
     console.log(taskEle);
+
+    taskEle.setAttribute(`data-id`, id); // set id of task;
 
     document.body.appendChild(taskEle);
   }
