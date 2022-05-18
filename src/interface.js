@@ -1,6 +1,7 @@
 import domModules from "./modules/dom-modules.js";
 import "./stylesheets/styles.css";
 import { v4 as uuidv4 } from "uuid";
+import MainStorage from "./modules/mainStorage.js";
 
 // https://zakarya-mks.github.io/ToDoers/
 
@@ -9,6 +10,16 @@ const titleInput = document.getElementById("title-input");
 const dueDateInput = document.getElementById("due-date-input");
 
 const priorityInputs = [...document.querySelectorAll('input[name="priority"]')];
+
+// function initTaskBtn() {
+//   const taskButtons = document.querySelectorAll("[data-task-button]");
+
+//   taskButtons.forEach((taskBtn) =>
+//     taskBtn.addEventListener("click", function () {
+//       MainStorage.deleteTask();
+//     })
+//   );
+// }
 
 function selectPriorityInput() {
   const selectedPriorityInput = priorityInputs.filter((priorityInput) => {

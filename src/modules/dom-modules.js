@@ -16,31 +16,31 @@ const domModules = (function () {
     _addTaskToDom(title, dueDate, priority, id);
   }
 
-  function setupLabel(text) {
-    const label = document.createElement("p");
-    const textNode = document.createTextNode(text);
-    label.appendChild(textNode);
-    label.className = "task-label";
-    return label;
-  }
+  // function setupLabel(text) {
+  //   const label = document.createElement("p");
+  //   const textNode = document.createTextNode(text);
+  //   label.appendChild(textNode);
+  //   label.className = "task-label";
+  //   return label;
+  // }
 
-  function _createTaskDeleteBtn(id) {
-    // delete section
-    const deleteTaskButton = document.createElement("button");
-    deleteTaskButton.innerText = "Delete";
-    deleteTaskButton.addEventListener("click", function () {
-      MainStorage.deleteTask(id);
-    });
-    deleteTaskButton.className = "task-delete-btn";
-    return deleteTaskButton;
-  }
+  // function _createTaskDeleteBtn(id) {
+  //   // delete section
+  //   const deleteTaskButton = document.createElement("button");
+  //   deleteTaskButton.innerText = "Delete";
+  //   deleteTaskButton.addEventListener("click", function () {
+  //     MainStorage.deleteTask(id);
+  //   });
+  //   deleteTaskButton.className = "task-delete-btn";
+  //   return deleteTaskButton;
+  // }
 
-  function _styleTask(id) {
-    let tasks = document.querySelectorAll(`div.task[name]`);
-    for (let i = 0; i < tasks.length; i++) {
-      console.log(tasks[i]);
-    }
-  }
+  // function _styleTask(id) {
+  //   let tasks = document.querySelectorAll(`div.task[name]`);
+  //   for (let i = 0; i < tasks.length; i++) {
+  //     console.log(tasks[i]);
+  //   }
+  // }
 
   function _addTaskToDom(title, dueDate, priority, id) {
     const taskEle = document.createElement("div"); // div element that is going to be appended to DOM
@@ -48,7 +48,16 @@ const domModules = (function () {
 
     document.getElementById(
       "inbox-task-container"
-    ).innerHTML += `<div class="task"><p>${title}</p><p>${dueDate}</p><p>${priority}</p><p>${id}</p></div>`;
+    ).innerHTML += `<div class="task">
+                    <p class="task-label task-label-title">${title}</p>
+                    <p class="task-label task-label-dueDate">${dueDate}</p>
+                    <p class="task-label task-label-priority">${priority}</p>
+                    <button class="task-delete-btn" data-task-btn>Delete</button> 
+                    </div>`;
+
+    
+
+
 
     // const titleLabel = setupLabel(title);
     // const dueDateLabel = setupLabel(dueDate);

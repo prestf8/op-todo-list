@@ -22,6 +22,17 @@ body {
   padding: 2rem;
 }
 
+/* styling for task */
+.task {
+  display: flex;
+}
+
+.task-label {
+  margin-right: 2rem;
+}
+
+/* END */
+
 #due-date-input {
   height: 1.5rem;
 }
