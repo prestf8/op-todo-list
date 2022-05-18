@@ -1,6 +1,5 @@
 import Task from "./task.js";
 import MainStorage from "./mainStorage.js";
-import DynamicStyling from "./dynamicStyling.js";
 
 // deleting code: if project === "Home" delete project from home; else delete project from home and from that project
 
@@ -37,25 +36,20 @@ const domModules = (function () {
   }
 
   function _styleTask(id) {
-    let taskContent = document.querySelectorAll(`div[data-id='${id}'] *`);
-    for (let i = 0; i < taskContent.length; i++) {
-      if ((taskContent[i].className = "task-label")) {
-        console.log("task label");
-      } else {
-        console.log("task delete btn");
-      }
+    let tasks = document.querySelectorAll(`div.task[name]`);
+    for (let i = 0; i < tasks.length; i++) {
+      console.log(tasks[i]);
     }
   }
 
   function _addTaskToDom(title, dueDate, priority, id) {
     const taskEle = document.createElement("div"); // div element that is going to be appended to DOM
+    taskEle.className = "task";
 
     const titleLabel = setupLabel(title);
     const dueDateLabel = setupLabel(dueDate);
     const priorityLabel = setupLabel(priority);
     const taskDeleteBtn = _createTaskDeleteBtn(id);
-
-    _styleTask(id); // style task by selecting element from dom by its id
 
     // appending content of task to the task itself
     taskEle.appendChild(titleLabel); // main div appending title
@@ -63,9 +57,9 @@ const domModules = (function () {
     taskEle.appendChild(priorityLabel);
     taskEle.appendChild(taskDeleteBtn);
 
-    console.log(taskEle);
+    taskEle.setAttribute(`name`, id); // set id of task;
 
-    taskEle.setAttribute(`data-id`, id); // set id of task;
+    _styleTask(id); // style task by selecting element from dom by its id
 
     document.body.appendChild(taskEle);
   }
