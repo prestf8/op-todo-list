@@ -46,22 +46,26 @@ const domModules = (function () {
     const taskEle = document.createElement("div"); // div element that is going to be appended to DOM
     taskEle.className = "task";
 
-    const titleLabel = setupLabel(title);
-    const dueDateLabel = setupLabel(dueDate);
-    const priorityLabel = setupLabel(priority);
-    const taskDeleteBtn = _createTaskDeleteBtn(id);
+    document.getElementById(
+      "inbox-task-container"
+    ).innerHTML += `<div class="task"><p>${title}</p><p>${dueDate}</p><p>${priority}</p><p>${id}</p></div>`;
 
-    // appending content of task to the task itself
-    taskEle.appendChild(titleLabel); // main div appending title
-    taskEle.appendChild(dueDateLabel);
-    taskEle.appendChild(priorityLabel);
-    taskEle.appendChild(taskDeleteBtn);
+    // const titleLabel = setupLabel(title);
+    // const dueDateLabel = setupLabel(dueDate);
+    // const priorityLabel = setupLabel(priority);
+    // const taskDeleteBtn = _createTaskDeleteBtn(id);
 
-    taskEle.setAttribute(`name`, id); // set id of task;
+    // // appending content of task to the task itself
+    // taskEle.appendChild(titleLabel); // main div appending title
+    // taskEle.appendChild(dueDateLabel);
+    // taskEle.appendChild(priorityLabel);
+    // taskEle.appendChild(taskDeleteBtn);
 
-    _styleTask(id); // style task by selecting element from dom by its id
+    // taskEle.setAttribute(`name`, id); // set id of task;
 
-    document.body.appendChild(taskEle);
+    // _styleTask(id); // style task by selecting element from dom by its id
+
+    // document.body.appendChild(taskEle);
   }
 
   return {
