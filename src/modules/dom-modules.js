@@ -24,16 +24,17 @@ const domModules = (function () {
   //   return label;
   // }
 
-  // function _createTaskDeleteBtn(id) {
-  //   // delete section
-  //   const deleteTaskButton = document.createElement("button");
-  //   deleteTaskButton.innerText = "Delete";
-  //   deleteTaskButton.addEventListener("click", function () {
-  //     MainStorage.deleteTask(id);
-  //   });
-  //   deleteTaskButton.className = "task-delete-btn";
-  //   return deleteTaskButton;
-  // }
+  function _createTaskDeleteBtn(id) {
+    // delete section
+    const deleteTaskButton = document.createElement("button");
+    deleteTaskButton.innerText = "Delete";
+    deleteTaskButton.addEventListener("click", function () {
+      MainStorage.deleteTask(id);
+    });
+    deleteTaskButton.className = "task-delete-btn";
+    deleteTaskButton.setAttribute("data-task-btn", true);
+    return deleteTaskButton;
+  }
 
   // function _styleTask(id) {
   //   let tasks = document.querySelectorAll(`div.task[name]`);
@@ -43,8 +44,8 @@ const domModules = (function () {
   // }
 
   function _addTaskToDom(title, dueDate, priority, id) {
-    const taskEle = document.createElement("div"); // div element that is going to be appended to DOM
-    taskEle.className = "task";
+    // const taskEle = document.createElement("div"); // div element that is going to be appended to DOM
+    // taskEle.className = "task";
 
     document.getElementById(
       "inbox-task-container"
@@ -52,12 +53,17 @@ const domModules = (function () {
                     <p class="task-label task-label-title">${title}</p>
                     <p class="task-label task-label-dueDate">${dueDate}</p>
                     <p class="task-label task-label-priority">${priority}</p>
-                    <button class="task-delete-btn" data-task-btn>Delete</button> 
                     </div>`;
 
-    
+    const taskBtn = _createTaskDeleteBtn(id);
+    const lastTask = document.querySelector(
+      "#inbox-task-container .task:last-child"
+    ); // get task we just appended to DOM
+    lastTask.appendChild(taskBtn); // use most recent task and add btn to it
 
+    // <button class="task-delete-btn" data-task-btn>Delete</button>
 
+    // querySelector .task last element > button
 
     // const titleLabel = setupLabel(title);
     // const dueDateLabel = setupLabel(dueDate);

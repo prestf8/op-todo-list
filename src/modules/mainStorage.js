@@ -13,7 +13,7 @@ const MainStorage = (function () {
   function deleteTask(id) {
     let storage = MainStorage.getStorage();
     console.log("id: " + id);
-    _storage = _storage.filter((task) => {
+    _storage = storage.filter((task) => {
       console.log("taskid: " + task.getId());
       return task.getId() !== id;
     });
