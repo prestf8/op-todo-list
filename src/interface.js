@@ -29,6 +29,8 @@ function selectPriorityInput() {
   return selectedPriorityInput[0];
 }
 
+domModules.initButtons();
+
 createTaskBtn.addEventListener("click", function () {
   const priorityInput = selectPriorityInput();
 

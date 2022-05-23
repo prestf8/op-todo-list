@@ -1,10 +1,14 @@
 import Task from "./task.js";
 import MainStorage from "./mainStorage.js";
 
-// deleting code: if project === "Home" delete project from home; else delete project from home and from that project
-
 const domModules = (function () {
   "use strict";
+
+  const taskContainer = document.getElementById("inbox-task-container");
+
+  function initButtons() {
+    taskContainer.addEventListener("click", _checkTaskInteraction);
+  }
 
   function _createTask(title, dueDate, priority, id) {
     return new Task(title, dueDate, priority, id);
@@ -16,21 +20,22 @@ const domModules = (function () {
     _addTaskToDom(title, dueDate, priority, id);
   }
 
-  // function setupLabel(text) {
-  //   const label = document.createElement("p");
-  //   const textNode = document.createTextNode(text);
-  //   label.appendChild(textNode);
-  //   label.className = "task-label";
-  //   return label;
-  // }
+  function setupLabel(text) {
+    const label = document.createElement("li");
+    const textNode = document.createTextNode(text);
+    label.appendChild(textNode);
+    label.className = "task-label";
+    return label;
+  }
 
-  function _createTaskDeleteBtn(id) {
+  function _checkTaskInteraction(e) {
+    console.log(e.target);
+  }
+
+  function _createTaskDeleteBtn() {
     // delete section
     const deleteTaskButton = document.createElement("button");
     deleteTaskButton.innerText = "Delete";
-    deleteTaskButton.addEventListener("click", function () {
-      MainStorage.deleteTask(id);
-    });
     deleteTaskButton.className = "task-delete-btn";
     deleteTaskButton.setAttribute("data-task-btn", true);
     return deleteTaskButton;
@@ -44,46 +49,47 @@ const domModules = (function () {
   // }
 
   function _addTaskToDom(title, dueDate, priority, id) {
-    // const taskEle = document.createElement("div"); // div element that is going to be appended to DOM
-    // taskEle.className = "task";
+    const task = document.createElement("div"); // div element that is going to be appended to DOM
+    task.classList.add("task");
 
-    document.getElementById(
-      "inbox-task-container"
-    ).innerHTML += `<div class="task">
-                    <p class="task-label task-label-title">${title}</p>
-                    <p class="task-label task-label-dueDate">${dueDate}</p>
-                    <p class="task-label task-label-priority">${priority}</p>
-                    </div>`;
+    // const taskBtn = _createTaskDeleteBtn(id);
+    // const tasks = document.querySelectorAll("#inbox-task-container > .task");
 
-    const taskBtn = _createTaskDeleteBtn(id);
-    const lastTask = document.querySelector(
-      "#inbox-task-container .task:last-child"
-    ); // get task we just appended to DOM
-    lastTask.appendChild(taskBtn); // use most recent task and add btn to it
+    // console.log(tasks);
+
+    // const lastTask = tasks[tasks.length - 1]; // get task we just appended to DOM
+
+    // console.log("last task: ", lastTask);
+
+    // lastTask.appendChild(taskBtn); // use most recent task and add btn to it
 
     // <button class="task-delete-btn" data-task-btn>Delete</button>
 
     // querySelector .task last element > button
 
-    // const titleLabel = setupLabel(title);
-    // const dueDateLabel = setupLabel(dueDate);
-    // const priorityLabel = setupLabel(priority);
-    // const taskDeleteBtn = _createTaskDeleteBtn(id);
+    const labelDiv = document.createElement("div");
 
-    // // appending content of task to the task itself
-    // taskEle.appendChild(titleLabel); // main div appending title
-    // taskEle.appendChild(dueDateLabel);
-    // taskEle.appendChild(priorityLabel);
-    // taskEle.appendChild(taskDeleteBtn);
+    const titleLabel = setupLabel(title);
+    const dueDateLabel = setupLabel(dueDate);
+    const priorityLabel = setupLabel(priority);
+    const taskDeleteBtn = _createTaskDeleteBtn(id);
 
-    // taskEle.setAttribute(`name`, id); // set id of task;
+    labelDiv.appendChild(titleLabel);
+    labelDiv.appendChild(dueDateLabel);
+    labelDiv.appendChild(priorityLabel);
+
+    task.appendChild(labelDiv);
+    task.appendChild(taskDeleteBtn);
+
+    task.setAttribute(`name`, id); // set id of task;
 
     // _styleTask(id); // style task by selecting element from dom by its id
 
-    // document.body.appendChild(taskEle);
+    taskContainer.appendChild(task);
   }
 
   return {
+    initButtons,
     addTask,
   };
 })();
