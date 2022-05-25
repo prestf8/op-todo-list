@@ -30,6 +30,9 @@ const domModules = (function () {
 
   function _checkTaskInteraction(e) {
     console.log(e.target);
+    if (e.target.classList.contains("task-delete-btn")) {
+      e.target.parentElement.remove();
+    }
   }
 
   function _createTaskDeleteBtn() {
