@@ -29,7 +29,6 @@ const domModules = (function () {
   }
 
   function _checkTaskInteraction(e) {
-    console.log(e.target);
     if (e.target.classList.contains("task-delete-btn")) {
       e.target.parentElement.remove();
     }
@@ -71,6 +70,7 @@ const domModules = (function () {
     // querySelector .task last element > button
 
     const labelDiv = document.createElement("div");
+    labelDiv.classList.add("task-content");
 
     const titleLabel = setupLabel(title);
     const dueDateLabel = setupLabel(dueDate);

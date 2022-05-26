@@ -5,30 +5,75 @@
   padding: 0;
 }
 
-body {
+.d-none {
+  display: none !important;
+}
+
+.header {
+  width: 100%;
   background: gray;
+  padding: 2rem;
+}
+
+.toggle-add-interface-btn {
+  padding: 0.4rem;
+  border-radius: 5px;
+}
+
+body {
 }
 
 #title-input {
   height: 1.5rem;
 }
 
-#create-task-interface {
-  background: red;
+#create-task-interface-container {
   position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+#create-task-interface {
+  border: 5px solid orange;
+  border-radius: 5px;
+  background: white;
+
+  /* position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
   padding: 2rem;
 }
 
 /* styling for task */
 .task {
   display: flex;
+  align-items: center;
+  padding: 0.4rem;
+}
+
+.task:hover {
+  background: gold;
+}
+
+.task-content {
+  display: flex;
+  justify-content: space-between;
 }
 
 .task-label {
   margin-right: 2rem;
+  list-style: none;
+}
+
+.task-delete-btn {
+  padding: 0.5rem;
 }
 
 /* END */
