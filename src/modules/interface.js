@@ -17,7 +17,7 @@ const createTaskInterfaceContainer = document.getElementById(
   "create-task-interface-container"
 );
 
-const Interface = (function() {
+const Interface = (function () {
   "use strict";
 
   function _selectPriorityInput() {
@@ -28,7 +28,7 @@ const Interface = (function() {
     return selectedPriorityInput[0];
   }
 
-  function toggleCreateTaskInterfaceContainer() {
+  function _toggleCreateTaskInterfaceContainer() {
     if (createTaskInterfaceContainer.classList.contains("d-none")) {
       createTaskInterfaceContainer.classList.remove("d-none");
     } else {
@@ -39,30 +39,32 @@ const Interface = (function() {
   function initInterfaceBtns() {
     // addTask
     createTaskBtn.addEventListener("click", function () {
+      _toggleCreateTaskInterfaceContainer();
       const priorityInput = _selectPriorityInput();
-      
+
       if (!titleInput.value || !priorityInput) return;
       let TASK_ID = uuidv4();
-      
+
       domModules.addTask(
         titleInput.value,
         dueDateInput.value,
         priorityInput.value,
         TASK_ID
-        );
-      });
-      
-      // Toggle Create Task Interface
-      for (let btn of toggleAddInterfaceBtn) {
-        btn.addEventListener("click", toggleCreateTaskInterfaceContainer);
-      }
-      domModules.initButtons();
+      );
+    });
+
+    // Toggle Create Task Interface
+    for (let i = 0; i < toggleAddInterfaceBtn.length; i++) {
+      toggleAddInterfaceBtn[i].addEventListener(
+        "click",
+        _toggleCreateTaskInterfaceContainer
+      );
     }
+    domModules.initButtons();
+  }
 
-    return {toggleCreateTaskInterfaceContainer, initInterfaceBtns}
-
-})
-
+  return { initInterfaceBtns };
+})();
 
 // function initTaskBtn() {
 //   const taskButtons = document.querySelectorAll("[data-task-button]");
@@ -74,4 +76,4 @@ const Interface = (function() {
 //   );
 // }
 
-export default Interface; 
+export default Interface;

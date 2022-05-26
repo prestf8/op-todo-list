@@ -1,3 +1,3 @@
-import Interface from "./stylesheets/interface.js"
+import Interface from "./modules/interface.js"
 
 Interface.initInterfaceBtns();

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Webpack App
+    </title>
+<script defer src="bundle.js"></script></head>
+
+<body>
+    <header class="header">
+        <button class="toggle-add-interface-btn">Add task</button>
+    </header>
+    <!-- Where you put your tasks !-->
+    <section id="inbox-task-container">
+
+    </section>
+    <div id="create-task-interface-container" class="d-none">
+        <section id="create-task-interface">
+            <div class="create-task-interface-div create-task-interface-title-div">
+                <label for="title-input">Title:</label>
+                <input type="text" id="title-input">
+            </div>
+            <div class="create-task-interface-div create-task-interface-due-date-div">
+                <label for="due-date-input">Due Date:</label>
+                <input type="date" id="due-date-input" />
+            </div>
+            <div class="create-task-interface-div create-task-interface-priority-div">
+                <input type="radio" id="low-priority-radio" name="priority" value="low">
+                <label for="low-priority-radio">Low</label>
+                <input type="radio" id="middle-priority-radio" name="priority" value="middle">
+                <label for="middle-priority-radio">Middle</label>
+                <input type="radio" id="high-priority-radio" name="priority" value="high">
+                <label for="high-priority-radio">High</label>
+            </div>
+            <button class="create-task-interface-add-btn" id="create-task-btn">Add</button>
+            <button class="toggle-add-interface-btn">Close</button>
+
+        </section>
+    </div>
+</body>
+
+</html>
