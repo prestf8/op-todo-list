@@ -3,28 +3,60 @@
 *::after {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
+
+/* Utility classes */
 
 .d-none {
   display: none !important;
+}
+
+.basic-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .header {
   width: 100%;
   background: gray;
   padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header > h1 {
+  font-size: 3rem;
+}
+
+.main-content-div {
+  display: flex;
 }
 
 .toggle-add-interface-btn {
-  padding: 0.4rem;
-  border-radius: 5px;
 }
-
+  
 body {
 }
 
 #title-input {
   height: 1.5rem;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: rgb(230, 230, 230);
+  padding: 2rem;
+}
+
+.project-label-li {
+  list-style: none;
+  font-size: 1.2rem;
+}
+
+.bottom-sidebar-section {
+  margin-top: 2rem;
 }
 
 #create-task-interface-container {
@@ -42,7 +74,7 @@ body {
 #create-task-interface {
   border: 5px solid orange;
   border-radius: 5px;
-  background: white;
+  background: coral;
 
   /* position: absolute;
   top: 50%;
@@ -94,10 +126,5 @@ body {
 }
 
 .create-task-interface-add-btn {
-  padding: 0.5rem 1.5rem;
   margin-top: 1rem;
-  font-size: 1.5rem;
-  cursor: pointer;
-  border-radius: 5px;
-  border: none;
 }
