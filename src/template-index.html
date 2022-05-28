@@ -13,23 +13,34 @@
 <body>
     <header class="header">
         <h1>Todo List.</h1>
-        <button class="toggle-add-interface-btn basic-btn">Add task</button>
+        <button class="toggle-task-interface-btn basic-btn">Add task</button>
     </header>
     <div class="main-content-div">
+        <!-- Sidebar on the left -->
         <nav class="sidebar">
             <div class="top-sidebar-section">
                 <ul>
                     <li class="project-label-li"><span>Inbox</span></li>
                 </ul>
             </div>
+            <!-- List of Projects and Add Project Button -->
             <div class="bottom-sidebar-section">
                 <h2>Projects</h2>
                 <ul>
                 </ul>
-                <button class="basic-btn">Add Project</button>
-
+                <button class="toggle-project-interface-btn basic-btn">Add Project</button>
             </div>
-
+            <!-- Create Project Form -->
+            <div id="create-project-interface-container" class="d-none">
+                <div id="create-project-interface">
+                    <label for="project-input-name">Name: </label>
+                    <input type="text" id="project-input-name">
+                    <div>
+                        <button class="toggle-project-interface-btn basic-btn">Close</button>
+                        <button id="create-project-btn" class="basic-btn">Add Project</button>
+                    </div>
+                </div>
+            </div>
         </nav>
         <main>
             <div id="create-task-interface-container" class="d-none">
@@ -53,12 +64,12 @@
                     </div>
                     <button class="create-task-interface-add-btn basic-btn"
                         id="create-task-btn">Add</button>
-                    <button class="toggle-add-interface-btn basic-btn">Close</button>
+                    <button class="toggle-task-interface-btn basic-btn">Close</button>
 
                 </section>
             </div>
             <section id="inbox-task-container">
-
+                <h2>Inbox</h2>
             </section>
         </main>
 

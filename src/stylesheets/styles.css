@@ -36,7 +36,7 @@
 
 .toggle-add-interface-btn {
 }
-  
+
 body {
 }
 
@@ -45,9 +45,34 @@ body {
 }
 
 .sidebar {
-  width: 200px;
+  width: 400px;
   background-color: rgb(230, 230, 230);
   padding: 2rem;
+}
+
+#create-project-interface-container {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+#create-project-interface {
+  padding: 1rem;
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid black;
+}
+
+#project-input-name {
+  margin-bottom: 1rem;
+  color: black;
+  padding: 0.5rem 0.8rem;
 }
 
 .project-label-li {
@@ -87,7 +112,7 @@ body {
 .task {
   display: flex;
   align-items: center;
-  padding: 0.4rem;
+  padding: 0.4rem 0;
 }
 
 .task:hover {
@@ -127,4 +152,8 @@ body {
 
 .create-task-interface-add-btn {
   margin-top: 1rem;
+}
+
+#inbox-task-container {
+  padding: 2rem;
 }

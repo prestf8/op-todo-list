@@ -5,16 +5,24 @@ import { v4 as uuidv4 } from "uuid";
 // https://zakarya-mks.github.io/ToDoers/
 
 const createTaskBtn = document.getElementById("create-task-btn");
+const createProjectBtn = document.getElementById("create-project-btn");
 const titleInput = document.getElementById("title-input");
 const dueDateInput = document.getElementById("due-date-input");
 
 const priorityInputs = [...document.querySelectorAll('input[name="priority"]')];
 
-const toggleAddInterfaceBtn = document.querySelectorAll(
-  ".toggle-add-interface-btn"
+const toggleTaskInterfaceBtn = document.querySelectorAll(
+  ".toggle-task-interface-btn"
+);
+const toggleProjectInterfaceBtn = document.querySelectorAll(
+  ".toggle-project-interface-btn"
 );
 const createTaskInterfaceContainer = document.getElementById(
   "create-task-interface-container"
+);
+
+const createProjectInterfaceContainer = document.getElementById(
+  "create-project-interface-container"
 );
 
 const Interface = (function () {
@@ -35,6 +43,13 @@ const Interface = (function () {
       createTaskInterfaceContainer.classList.add("d-none");
     }
   }
+  function _toggleCreateProjectInterfaceContainer() {
+    if (createProjectInterfaceContainer.classList.contains("d-none")) {
+      createProjectInterfaceContainer.classList.remove("d-none");
+    } else {
+      createProjectInterfaceContainer.classList.add("d-none");
+    }
+  }
 
   function initInterfaceBtns() {
     // addTask
@@ -53,13 +68,25 @@ const Interface = (function () {
       );
     });
 
+    createProjectBtn.addEventListener("click", function () {
+      _toggleCreateProjectInterfaceContainer();
+    });
+
     // Toggle Create Task Interface
-    for (let i = 0; i < toggleAddInterfaceBtn.length; i++) {
-      toggleAddInterfaceBtn[i].addEventListener(
+    for (let i = 0; i < toggleTaskInterfaceBtn.length; i++) {
+      toggleTaskInterfaceBtn[i].addEventListener(
         "click",
         _toggleCreateTaskInterfaceContainer
       );
     }
+    // Toggle Create Project Interface
+    for (let i = 0; i < toggleProjectInterfaceBtn.length; i++) {
+      toggleProjectInterfaceBtn[i].addEventListener(
+        "click",
+        _toggleCreateProjectInterfaceContainer
+      );
+    }
+
     domModules.initButtons();
   }
 

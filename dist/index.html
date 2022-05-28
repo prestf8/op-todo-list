@@ -12,35 +12,61 @@
 
 <body>
     <header class="header">
-        <button class="toggle-add-interface-btn">Add task</button>
+        <h1>Todo List.</h1>
+        <button class="toggle-add-interface-btn basic-btn">Add task</button>
     </header>
-    <!-- Where you put your tasks !-->
-    <section id="inbox-task-container">
+    <div class="main-content-div">
+        <nav class="sidebar">
+            <div class="top-sidebar-section">
+                <ul>
+                    <li class="project-label-li"><span>Inbox</span></li>
+                </ul>
+            </div>
+            <div class="bottom-sidebar-section">
+                <h2>Projects</h2>
+                <ul>
+                </ul>
+                <button class="basic-btn">Add Project</button>
 
-    </section>
-    <div id="create-task-interface-container" class="d-none">
-        <section id="create-task-interface">
-            <div class="create-task-interface-div create-task-interface-title-div">
-                <label for="title-input">Title:</label>
-                <input type="text" id="title-input">
             </div>
-            <div class="create-task-interface-div create-task-interface-due-date-div">
-                <label for="due-date-input">Due Date:</label>
-                <input type="date" id="due-date-input" />
-            </div>
-            <div class="create-task-interface-div create-task-interface-priority-div">
-                <input type="radio" id="low-priority-radio" name="priority" value="low">
-                <label for="low-priority-radio">Low</label>
-                <input type="radio" id="middle-priority-radio" name="priority" value="middle">
-                <label for="middle-priority-radio">Middle</label>
-                <input type="radio" id="high-priority-radio" name="priority" value="high">
-                <label for="high-priority-radio">High</label>
-            </div>
-            <button class="create-task-interface-add-btn" id="create-task-btn">Add</button>
-            <button class="toggle-add-interface-btn">Close</button>
 
-        </section>
+        </nav>
+        <main>
+            <div id="create-task-interface-container" class="d-none">
+                <section id="create-task-interface">
+                    <div class="create-task-interface-div create-task-interface-title-div">
+                        <label for="title-input">Title:</label>
+                        <input type="text" id="title-input">
+                    </div>
+                    <div class="create-task-interface-div create-task-interface-due-date-div">
+                        <label for="due-date-input">Due Date:</label>
+                        <input type="date" id="due-date-input" />
+                    </div>
+                    <div class="create-task-interface-div create-task-interface-priority-div">
+                        <input type="radio" id="low-priority-radio" name="priority" value="low">
+                        <label for="low-priority-radio">Low</label>
+                        <input type="radio" id="middle-priority-radio" name="priority"
+                            value="middle">
+                        <label for="middle-priority-radio">Middle</label>
+                        <input type="radio" id="high-priority-radio" name="priority" value="high">
+                        <label for="high-priority-radio">High</label>
+                    </div>
+                    <button class="create-task-interface-add-btn basic-btn"
+                        id="create-task-btn">Add</button>
+                    <button class="toggle-add-interface-btn basic-btn">Close</button>
+
+                </section>
+            </div>
+            <section id="inbox-task-container">
+
+            </section>
+        </main>
+
     </div>
+
+    <!-- Where you put your tasks !-->
+
+
 </body>
 
 </html>
