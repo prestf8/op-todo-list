@@ -3,6 +3,14 @@ const MainStorage = (function () {
   let _storage = [];
   let _projectStorage = [];
 
+  function deleteProject(project) {
+    // find index of where the project is so we can use this to remove from storage
+    const index = _projectStorage.includes(project);
+
+    _projectStorage.splice(index, 1);
+    console.log("L:", _projectStorage);
+  }
+
   function getStorage() {
     return _storage;
   }
@@ -38,6 +46,7 @@ const MainStorage = (function () {
     getStorage,
     addTaskToStorage,
     addProjectToStorage,
+    deleteProject,
     deleteTask,
     getProjectStorage,
     checkValidProject,

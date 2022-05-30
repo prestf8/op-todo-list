@@ -14,6 +14,7 @@ const domModules = (function () {
 
   function initButtons() {
     taskContainer.addEventListener("click", _checkTaskInteraction);
+    projectContainer.addEventListener("click", _checkProjectInteraction);
   }
 
   function _createTask(title, dueDate, priority, id) {
@@ -47,6 +48,16 @@ const domModules = (function () {
     if (e.target.classList.contains("task-delete-btn")) {
       e.target.parentElement.remove();
     }
+  }
+
+  function _checkProjectInteraction(e) {
+    console.log(e.target);
+    if (e.target.classList.contains("p-delete-btn")) {
+      e.target.parentElement.remove();
+    }
+
+    // pass in parent element (corresponding project) to delete it from storage
+    MainStorage.deleteProject(e.target.parentElement);
   }
 
   function _createTaskDeleteBtn() {
