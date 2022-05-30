@@ -10,8 +10,8 @@ module.exports = {
   },
   devServer: {
     static: {
-      directory: path.resolve(__dirname, 'dist')
-    }, 
+      directory: path.resolve(__dirname, "dist"),
+    },
     port: 3000,
     open: true,
     hot: true,
@@ -28,7 +28,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Webpack App",
+      title: "Todo List",
       filename: "index.html",
       template: "src/template-index.html",
     }),

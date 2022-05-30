@@ -20,6 +20,13 @@ const domModules = (function () {
     _addTaskToDom(title, dueDate, priority, id);
   }
 
+  function addProject(title) {
+    if (MainStorage.checkValidProject(title)) {
+      MainStorage.addProjectToStorage(title);
+    }
+    console.log(MainStorage.getProjectStorage());
+  }
+
   function setupLabel(text) {
     const label = document.createElement("li");
     const textNode = document.createTextNode(text);
@@ -94,6 +101,7 @@ const domModules = (function () {
   return {
     initButtons,
     addTask,
+    addProject,
   };
 })();
 

@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 const createTaskBtn = document.getElementById("create-task-btn");
 const createProjectBtn = document.getElementById("create-project-btn");
 const titleInput = document.getElementById("title-input");
+const projectTitleInput = document.getElementById("project-input-name");
 const dueDateInput = document.getElementById("due-date-input");
 
 const priorityInputs = [...document.querySelectorAll('input[name="priority"]')];
@@ -28,6 +29,7 @@ const createProjectInterfaceContainer = document.getElementById(
 const Interface = (function () {
   "use strict";
 
+  // check if at least one of the radio buttons when creating a task is selected
   function _selectPriorityInput() {
     const selectedPriorityInput = priorityInputs.filter((priorityInput) => {
       return priorityInput.checked;
@@ -36,6 +38,7 @@ const Interface = (function () {
     return selectedPriorityInput[0];
   }
 
+  // Toggles visibility of the create task interface
   function _toggleCreateTaskInterfaceContainer() {
     if (createTaskInterfaceContainer.classList.contains("d-none")) {
       createTaskInterfaceContainer.classList.remove("d-none");
@@ -43,6 +46,8 @@ const Interface = (function () {
       createTaskInterfaceContainer.classList.add("d-none");
     }
   }
+
+  // Toggles visibility of the create project interface
   function _toggleCreateProjectInterfaceContainer() {
     if (createProjectInterfaceContainer.classList.contains("d-none")) {
       createProjectInterfaceContainer.classList.remove("d-none");
@@ -52,12 +57,17 @@ const Interface = (function () {
   }
 
   function initInterfaceBtns() {
-    // addTask
+    // Event Listener for creating tasks
     createTaskBtn.addEventListener("click", function () {
-      _toggleCreateTaskInterfaceContainer();
+      // obtain value of priority radio buttons
       const priorityInput = _selectPriorityInput();
 
+      // close create task interface after pressing the button to create the task
+      _toggleCreateTaskInterfaceContainer();
+
+      // if no title or no priority inputted then the "createTaskBtn" doesn't do anything
       if (!titleInput.value || !priorityInput) return;
+
       let TASK_ID = uuidv4();
 
       domModules.addTask(
@@ -68,8 +78,12 @@ const Interface = (function () {
       );
     });
 
+    // Event Listener for creating projects
     createProjectBtn.addEventListener("click", function () {
+      // close create project interface after pressing the button to create the project
       _toggleCreateProjectInterfaceContainer();
+
+      domModules.addProject(projectTitleInput.value);
     });
 
     // Toggle Create Task Interface

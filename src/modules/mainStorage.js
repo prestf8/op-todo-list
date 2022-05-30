@@ -1,9 +1,22 @@
 const MainStorage = (function () {
   "use strict";
   let _storage = [];
+  let _projectStorage = [];
 
   function getStorage() {
     return _storage;
+  }
+
+  function getProjectStorage() {
+    return _projectStorage;
+  }
+
+  function checkValidProject(name) {
+    return !_projectStorage.includes(name);
+  }
+
+  function addProjectToStorage(name) {
+    _projectStorage.push(name);
   }
 
   function addTaskToStorage(task) {
@@ -20,7 +33,14 @@ const MainStorage = (function () {
     console.log(_storage);
   }
 
-  return { getStorage, addTaskToStorage, deleteTask };
+  return {
+    getStorage,
+    addTaskToStorage,
+    addProjectToStorage,
+    deleteTask,
+    getProjectStorage,
+    checkValidProject,
+  };
 })();
 
 export default MainStorage;
