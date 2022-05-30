@@ -84,6 +84,33 @@ body {
   margin-top: 2rem;
 }
 
+/* for label "Projects" */
+.bottom-sidebar-section > h2 {
+  margin-bottom: 2rem;
+}
+
+/* for Project Container */
+.bottom-sidebar-section > ul {
+  background: red;
+}
+
+.project {
+  margin-top: 1rem;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.project:hover {
+  cursor: pointer;
+  background-color: gold;
+}
+
+.p-delete-btn {
+  padding: 5px;
+}
+
 #create-task-interface-container {
   position: absolute;
   top: 0;
@@ -110,8 +137,10 @@ body {
 
 /* styling for task */
 .task {
+  background: red;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0.4rem 0;
 }
 
@@ -124,9 +153,11 @@ body {
   justify-content: space-between;
 }
 
-.task-label {
+.label {
   margin-right: 2rem;
   list-style: none;
+  width: 100%;
+  white-space: nowrap;
 }
 
 .task-delete-btn {
@@ -154,6 +185,16 @@ body {
   margin-top: 1rem;
 }
 
+main {
+  width: 100%;
+}
+
 #inbox-task-container {
   padding: 2rem;
+  background: purple;
+  width: 100%;
+}
+
+.bottom-sidebar-section > .toggle-project-interface-btn {
+  margin-top: 2rem;
 }

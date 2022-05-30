@@ -7,6 +7,11 @@ const domModules = (function () {
 
   const taskContainer = document.getElementById("inbox-task-container");
 
+  // Where all the projects are listed
+  const projectContainer = document.querySelector(
+    ".bottom-sidebar-section > ul"
+  );
+
   function initButtons() {
     taskContainer.addEventListener("click", _checkTaskInteraction);
   }
@@ -25,7 +30,7 @@ const domModules = (function () {
     if (MainStorage.checkValidProject(title)) {
       const newProject = new Project(title);
       MainStorage.addProjectToStorage(newProject);
-      console.log("fcked");
+      _addProjectToDom(title);
     }
     console.log(MainStorage.getProjectStorage());
   }
@@ -34,7 +39,7 @@ const domModules = (function () {
     const label = document.createElement("li");
     const textNode = document.createTextNode(text);
     label.appendChild(textNode);
-    label.className = "task-label";
+    label.className = "label";
     return label;
   }
 
@@ -59,6 +64,21 @@ const domModules = (function () {
   //     console.log(tasks[i]);
   //   }
   // }
+
+  function _addProjectToDom(title) {
+    const project = document.createElement("div");
+    project.classList.add("project");
+    const nameLabel = setupLabel(title);
+    project.appendChild(nameLabel);
+
+    // delete button for project
+    const deleteBtn = document.createElement("button");
+    deleteBtn.innerText = "D";
+    deleteBtn.classList.add("p-delete-btn");
+    project.appendChild(deleteBtn);
+
+    projectContainer.appendChild(project);
+  }
 
   function _addTaskToDom(title, dueDate, priority, id) {
     const task = document.createElement("div"); // div element that is going to be appended to DOM
