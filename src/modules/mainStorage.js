@@ -12,11 +12,12 @@ const MainStorage = (function () {
   }
 
   function checkValidProject(name) {
-    return !_projectStorage.includes(name);
+    const tempNameStorage = _projectStorage.map((project) => project.getName());
+    return !tempNameStorage.includes(name);
   }
 
-  function addProjectToStorage(name) {
-    _projectStorage.push(name);
+  function addProjectToStorage(project) {
+    _projectStorage.push(project);
   }
 
   function addTaskToStorage(task) {

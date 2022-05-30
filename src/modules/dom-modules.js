@@ -1,5 +1,6 @@
 import Task from "./task.js";
 import MainStorage from "./mainStorage.js";
+import Project from "./Project.js";
 
 const domModules = (function () {
   "use strict";
@@ -22,7 +23,9 @@ const domModules = (function () {
 
   function addProject(title) {
     if (MainStorage.checkValidProject(title)) {
-      MainStorage.addProjectToStorage(title);
+      const newProject = new Project(title);
+      MainStorage.addProjectToStorage(newProject);
+      console.log("fcked");
     }
     console.log(MainStorage.getProjectStorage());
   }
