@@ -1,5 +1,5 @@
-import Task from "./task.js";
-import MainStorage from "./mainStorage.js";
+import Task from "./Task.js";
+import MainStorage from "./MainStorage.js";
 import Project from "./Project.js";
 
 const domModules = (function () {

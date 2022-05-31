@@ -3,14 +3,7 @@ const MainStorage = (function () {
   let _storage = [];
   let _projectStorage = [];
 
-  function deleteProject(project) {
-    // find index of where the project is so we can use this to remove from storage
-    const index = _projectStorage.includes(project);
-
-    _projectStorage.splice(index, 1);
-    console.log("L:", _projectStorage);
-  }
-
+  // both of these below return both storages
   function getStorage() {
     return _storage;
   }
@@ -19,27 +12,40 @@ const MainStorage = (function () {
     return _projectStorage;
   }
 
-  function checkValidProject(name) {
-    const tempNameStorage = _projectStorage.map((project) => project.getName());
-    return !tempNameStorage.includes(name);
+  // both of these below add either a task or project to the storages
+  function addTaskToStorage(task) {
+    _storage.push(task);
   }
 
   function addProjectToStorage(project) {
     _projectStorage.push(project);
   }
 
-  function addTaskToStorage(task) {
-    _storage.push(task);
-  }
-
+  // removes task from "_storage" through id
   function deleteTask(id) {
+    // obtain storage
     let storage = MainStorage.getStorage();
-    console.log("id: " + id);
+
+    // using filter we set a new array to "_storage" in which the new array
+    // consists of elements that don't have an id equal to the id passed
     _storage = storage.filter((task) => {
-      console.log("taskid: " + task.getId());
       return task.getId() !== id;
     });
-    console.log(_storage);
+  }
+
+  // removes project from "_projectStorage"
+  function deleteProject(project) {
+    // locate where it is in array
+    const index = _projectStorage.includes(project);
+
+    // use location to remove it from array
+    _projectStorage.splice(index, 1);
+  }
+
+  // checks if there is already a project with the same name in "_projectStorage"
+  function checkValidProject(name) {
+    const tempNameStorage = _projectStorage.map((project) => project.getName());
+    return !tempNameStorage.includes(name);
   }
 
   return {
