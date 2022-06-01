@@ -24,6 +24,38 @@ const DomModule = (function () {
     return label;
   }
 
+  // function that adds task to dom given a name, dueDate, priority value, and id
+  function _addTaskToDom(title, dueDate, priority, id) {
+    const task = document.createElement("div"); // div element that is going to be appended to DOM
+
+    // every task gets a class of "task"
+    task.classList.add("task");
+
+    // div container to group all the labels
+    const labelDiv = document.createElement("div");
+    labelDiv.classList.add("task-content");
+
+    // create all the elements in the task
+    const titleLabel = _setupLabel(title);
+    const dueDateLabel = _setupLabel(dueDate);
+    const priorityLabel = _setupLabel(priority);
+    const taskDeleteBtn = _createTaskDeleteBtn(id);
+
+    // append all the created elements and the label container to the DOM
+    labelDiv.appendChild(titleLabel);
+    labelDiv.appendChild(dueDateLabel);
+    labelDiv.appendChild(priorityLabel);
+    task.appendChild(labelDiv);
+    task.appendChild(taskDeleteBtn);
+
+    // name=id attribute for task;
+    task.setAttribute(`name`, id);
+
+    // add task to DOM (to "_taskContainer")
+    _taskContainer.appendChild(task);
+  }
+
+  // function that adds project to dom using a name
   function _addProjectToDom(title) {
     // create project div
     const project = document.createElement("div");
@@ -47,7 +79,6 @@ const DomModule = (function () {
 
   // create delete task button for tasks
   function _createTaskDeleteBtn() {
-    // delete section
     const deleteTaskButton = document.createElement("button");
     deleteTaskButton.innerText = "Delete";
     deleteTaskButton.className = "task-delete-btn";
@@ -55,42 +86,18 @@ const DomModule = (function () {
     return deleteTaskButton;
   }
 
-  function _addTaskToDom(title, dueDate, priority, id) {
-    const task = document.createElement("div"); // div element that is going to be appended to DOM
-    task.classList.add("task");
-
-    const labelDiv = document.createElement("div");
-    labelDiv.classList.add("task-content");
-
-    const titleLabel = _setupLabel(title);
-    const dueDateLabel = _setupLabel(dueDate);
-    const priorityLabel = _setupLabel(priority);
-    const taskDeleteBtn = _createTaskDeleteBtn(id);
-
-    labelDiv.appendChild(titleLabel);
-    labelDiv.appendChild(dueDateLabel);
-    labelDiv.appendChild(priorityLabel);
-
-    task.appendChild(labelDiv);
-    task.appendChild(taskDeleteBtn);
-
-    task.setAttribute(`name`, id); // set id of task;
-
-    // _styleTask(id); // style task by selecting element from dom by its id
-
-    _taskContainer.appendChild(task);
-  }
-
   // event listener that is called when you click on a task
   function _checkTaskInteraction(e) {
+    // this block is called if element clicked on is a task delete button
     if (e.target.classList.contains("task-delete-btn")) {
+      // remove parent element (corresponding task)
       e.target.parentElement.remove();
     }
   }
 
   // event listener that is called when you click on a project
   function _checkProjectInteraction(e) {
-    // if statement if element is the delete button of a project
+    // this block is called if element clicked on is a project delete button
     if (e.target.classList.contains("p-delete-btn")) {
       // remove parent element (corresponding project)
       e.target.parentElement.remove();
@@ -100,35 +107,36 @@ const DomModule = (function () {
     MainStorage.deleteProject(e.target.parentElement);
   }
 
+  // public method to set interactivity of clicking task/project and different parts of them
   function initButtons() {
     _taskContainer.addEventListener("click", _checkTaskInteraction);
     _projectContainer.addEventListener("click", _checkProjectInteraction);
   }
 
+  // public method that creates task and adds it to the dom and storage
   function addTask(title, dueDate, priority, id) {
     // create new task object
     const task = new Task(title, dueDate, priority, id);
 
     // add created task object to storage
     MainStorage.addTaskToStorage(task);
+
+    // add task to dom
     _addTaskToDom(title, dueDate, priority, id);
   }
 
+  // public method that creates project and adds it to the dom and storage
   function addProject(title) {
+    // if statement that runs only if no other project exists with this title
     if (MainStorage.checkValidProject(title)) {
+      // create new project
       const newProject = new Project(title);
+      // add project to storage by passing in project itself
       MainStorage.addProjectToStorage(newProject);
+      // add project to dom using only title
       _addProjectToDom(title);
     }
-    console.log(MainStorage.getProjectStorage());
   }
-
-  // function _styleTask(id) {
-  //   let tasks = document.querySelectorAll(`div.task[name]`);
-  //   for (let i = 0; i < tasks.length; i++) {
-  //     console.log(tasks[i]);
-  //   }
-  // }
 
   return {
     initButtons,
