@@ -1,4 +1,4 @@
-import domModules from "./dom-modules.js";
+import DomModule from "./DomModule.js";
 import "../stylesheets/styles.css";
 import { v4 as uuidv4 } from "uuid";
 
@@ -70,7 +70,7 @@ const Interface = (function () {
 
       let TASK_ID = uuidv4();
 
-      domModules.addTask(
+      DomModule.addTask(
         titleInput.value,
         dueDateInput.value,
         priorityInput.value,
@@ -83,7 +83,7 @@ const Interface = (function () {
       // close create project interface after pressing the button to create the project
       _toggleCreateProjectInterfaceContainer();
 
-      domModules.addProject(projectTitleInput.value);
+      DomModule.addProject(projectTitleInput.value);
     });
 
     // Toggle Create Task Interface
@@ -101,7 +101,7 @@ const Interface = (function () {
       );
     }
 
-    domModules.initButtons();
+    DomModule.initButtons();
   }
 
   return { initInterfaceBtns };
