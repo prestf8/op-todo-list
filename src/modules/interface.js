@@ -4,30 +4,34 @@ import { v4 as uuidv4 } from "uuid";
 
 // https://zakarya-mks.github.io/ToDoers/
 
-const createTaskBtn = document.getElementById("create-task-btn");
-const createProjectBtn = document.getElementById("create-project-btn");
-const titleInput = document.getElementById("title-input");
-const projectTitleInput = document.getElementById("project-input-name");
-const dueDateInput = document.getElementById("due-date-input");
-
-const priorityInputs = [...document.querySelectorAll('input[name="priority"]')];
-
-const toggleTaskInterfaceBtn = document.querySelectorAll(
-  ".toggle-task-interface-btn"
-);
-const toggleProjectInterfaceBtn = document.querySelectorAll(
-  ".toggle-project-interface-btn"
-);
-const createTaskInterfaceContainer = document.getElementById(
-  "create-task-interface-container"
-);
-
-const createProjectInterfaceContainer = document.getElementById(
-  "create-project-interface-container"
-);
-
+// interface module
 const Interface = (function () {
   "use strict";
+
+  // DOM elements
+  const createTaskBtn = document.getElementById("create-task-btn");
+  const createProjectBtn = document.getElementById("create-project-btn");
+  const titleInput = document.getElementById("title-input");
+  const projectTitleInput = document.getElementById("project-input-name");
+  const dueDateInput = document.getElementById("due-date-input");
+
+  const priorityInputs = [
+    ...document.querySelectorAll('input[name="priority"]'),
+  ];
+
+  const toggleTaskInterfaceBtn = document.querySelectorAll(
+    ".toggle-task-interface-btn"
+  );
+  const toggleProjectInterfaceBtn = document.querySelectorAll(
+    ".toggle-project-interface-btn"
+  );
+  const createTaskInterfaceContainer = document.getElementById(
+    "create-task-interface-container"
+  );
+
+  const createProjectInterfaceContainer = document.getElementById(
+    "create-project-interface-container"
+  );
 
   // check if at least one of the radio buttons when creating a task is selected
   function _selectPriorityInput() {
@@ -57,7 +61,7 @@ const Interface = (function () {
   }
 
   function initInterfaceBtns() {
-    // Event Listener for creating tasks
+    // Event Listener for creating tasks when you click
     createTaskBtn.addEventListener("click", function () {
       // obtain value of priority radio buttons
       const priorityInput = _selectPriorityInput();
@@ -68,6 +72,7 @@ const Interface = (function () {
       // if no title or no priority inputted then the "createTaskBtn" doesn't do anything
       if (!titleInput.value || !priorityInput) return;
 
+      // generate task id
       let TASK_ID = uuidv4();
 
       DomModule.addTask(
@@ -86,14 +91,14 @@ const Interface = (function () {
       DomModule.addProject(projectTitleInput.value);
     });
 
-    // Toggle Create Task Interface
+    // Toggle Create Task Interface appearance
     for (let i = 0; i < toggleTaskInterfaceBtn.length; i++) {
       toggleTaskInterfaceBtn[i].addEventListener(
         "click",
         _toggleCreateTaskInterfaceContainer
       );
     }
-    // Toggle Create Project Interface
+    // Toggle Create Project Interface appearance
     for (let i = 0; i < toggleProjectInterfaceBtn.length; i++) {
       toggleProjectInterfaceBtn[i].addEventListener(
         "click",

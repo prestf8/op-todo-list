@@ -1,3 +1,3 @@
-import Interface from "./modules/interface.js"
+import Interface from "./modules/Interface.js"
 
 Interface.initInterfaceBtns();
