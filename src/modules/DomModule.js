@@ -28,6 +28,17 @@ const DomModule = (function () {
   function _addTaskToDom(title, dueDate, priority, id) {
     const task = document.createElement("div"); // div element that is going to be appended to DOM
 
+    console.log(priority);
+
+    // assign classes to task based on priority input; the css then styles the bar that indicates priority of task
+    if (priority === "low") {
+      task.classList.add("lowPriority");
+    } else if (priority === "middle") {
+      task.classList.add("middlePriority");
+    } else if (priority === "high") {
+      task.classList.add("highPriority");
+    }
+
     // every task gets a class of "task"
     task.classList.add("task");
 
@@ -38,13 +49,11 @@ const DomModule = (function () {
     // create all the elements in the task
     const titleLabel = _setupLabel(title);
     const dueDateLabel = _setupLabel(dueDate);
-    const priorityLabel = _setupLabel(priority);
     const taskDeleteBtn = _createTaskDeleteBtn(id);
 
     // append all the created elements and the label container to the DOM
     labelDiv.appendChild(titleLabel);
     labelDiv.appendChild(dueDateLabel);
-    labelDiv.appendChild(priorityLabel);
     task.appendChild(labelDiv);
     task.appendChild(taskDeleteBtn);
 

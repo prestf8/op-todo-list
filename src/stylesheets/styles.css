@@ -121,6 +121,7 @@ body {
   justify-content: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.3);
+  z-index: 2;
 }
 
 #create-task-interface {
@@ -141,7 +142,30 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.4rem 0;
+  padding: 0.4rem 0.3rem 0.4rem 1.2rem;
+  position: relative;
+}
+
+/* To style the bar that indicates priority of task */
+.task::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 10px;
+}
+
+.lowPriority::after {
+  background-color: green;
+}
+
+.middlePriority::after {
+  background-color: gold;
+}
+
+.highPriority::after {
+  background-color: darkred;
 }
 
 .task:hover {

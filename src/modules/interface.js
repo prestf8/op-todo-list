@@ -14,11 +14,9 @@ const Interface = (function () {
   const titleInput = document.getElementById("title-input");
   const projectTitleInput = document.getElementById("project-input-name");
   const dueDateInput = document.getElementById("due-date-input");
-
   const priorityInputs = [
     ...document.querySelectorAll('input[name="priority"]'),
   ];
-
   const toggleTaskInterfaceBtn = document.querySelectorAll(
     ".toggle-task-interface-btn"
   );
@@ -28,7 +26,6 @@ const Interface = (function () {
   const createTaskInterfaceContainer = document.getElementById(
     "create-task-interface-container"
   );
-
   const createProjectInterfaceContainer = document.getElementById(
     "create-project-interface-container"
   );
