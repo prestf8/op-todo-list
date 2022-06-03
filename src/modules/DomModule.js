@@ -104,16 +104,33 @@ const DomModule = (function () {
     }
   }
 
+  function _highlightProject(project) {
+    // unselect all projects
+    const projects = document.querySelectorAll(".project");
+    projects.forEach((project) => project.classList.remove("selected-project"));
+
+    // selects clicked on project
+    project.classList.add("selected-project");
+  }
+
   // event listener that is called when you click on a project
   function _checkProjectInteraction(e) {
     // this block is called if element clicked on is a project delete button
     if (e.target.classList.contains("p-delete-btn")) {
       // remove parent element (corresponding project)
       e.target.parentElement.remove();
+      // pass in parent element (corresponding project) to delete it from storage
+      MainStorage.deleteProject(e.target.parentElement);
+    } else {
+      // if element selected IS NOT the delete button (in this case the project element or )
+      let project;
+      if (e.target.classList.contains("label")) {
+        project = e.target.parentElement;
+      } else if (e.target.classList.contains("project")) {
+        project = e.target;
+      }
+      _highlightProject(project);
     }
-
-    // pass in parent element (corresponding project) to delete it from storage
-    MainStorage.deleteProject(e.target.parentElement);
   }
 
   // public method to set interactivity of clicking task/project and different parts of them

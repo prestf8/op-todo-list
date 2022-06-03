@@ -57,6 +57,7 @@ body {
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.6);
+  z-index: 2;
 }
 
 #create-project-interface {
@@ -82,6 +83,7 @@ body {
 
 .bottom-sidebar-section {
   margin-top: 2rem;
+  background-color: limegreen;
 }
 
 /* for label "Projects" */
@@ -95,16 +97,19 @@ body {
 }
 
 .project {
-  margin-top: 1rem;
   padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: gold;
 }
 
 .project:hover {
   cursor: pointer;
-  background-color: gold;
+}
+
+.selected-project {
+  background-color: blue;
 }
 
 .p-delete-btn {
