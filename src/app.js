@@ -1,3 +1,9 @@
-import Interface from "./modules/Interface.js"
+import Interface from "./modules/Interface.js";
+
+// fontawesome
+import "@fortawesome/fontawesome-free/js/fontawesome";
+import "@fortawesome/fontawesome-free/js/solid";
+import "@fortawesome/fontawesome-free/js/regular";
+import "@fortawesome/fontawesome-free/js/brands";
 
 Interface.initInterfaceBtns();

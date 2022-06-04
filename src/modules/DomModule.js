@@ -78,7 +78,7 @@ const DomModule = (function () {
 
     // delete button for project
     const deleteBtn = document.createElement("button");
-    deleteBtn.innerText = "D";
+    deleteBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
     deleteBtn.classList.add("p-delete-btn");
     project.appendChild(deleteBtn);
 
@@ -89,7 +89,7 @@ const DomModule = (function () {
   // create delete task button for tasks
   function _createTaskDeleteBtn() {
     const deleteTaskButton = document.createElement("button");
-    deleteTaskButton.innerText = "Delete";
+    deleteTaskButton.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
     deleteTaskButton.className = "task-delete-btn";
     deleteTaskButton.setAttribute("data-task-btn", true);
     return deleteTaskButton;

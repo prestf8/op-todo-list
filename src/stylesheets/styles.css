@@ -93,7 +93,6 @@ body {
 
 /* for Project Container */
 .bottom-sidebar-section > ul {
-  background: red;
 }
 
 .project {
@@ -101,7 +100,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: gold;
 }
 
 .project:hover {
