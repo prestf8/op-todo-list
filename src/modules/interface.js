@@ -57,6 +57,51 @@ const Interface = (function () {
     }
   }
 
+  function _formatDueDate() {
+    const dueDate = dueDateInput.value;
+    let currentYear;
+    let currentMonth;
+    let currentDay;
+
+    // if no dueDate was inputted
+    if (!dueDate) {
+      const date = new Date();
+      currentYear = date.getFullYear();
+
+      // // .getMonth() returns the numerical version of a month so we need to use an array to find the corresponding month in words
+      // const month = [
+      //   "January",
+      //   "February",
+      //   "March",
+      //   "April",
+      //   "May",
+      //   "June",
+      //   "July",
+      //   "August",
+      //   "September",
+      //   "October",
+      //   "November",
+      //   "December",
+      // ];
+      // let currentMonth = month[date.getMonth()];
+
+      currentMonth = date.getMonth() + 1;
+
+      currentDay = date.getDay();
+    } else {
+      // split date input into array of year, month, and day
+      let dueDateSplit = dueDate.split("-");
+
+      // initialize variable from this array
+      currentYear = dueDateSplit[0];
+      currentMonth = parseInt(dueDateSplit[1], 10);
+      currentDay = parseInt(dueDateSplit[2], 10);
+    }
+
+    // after initializing variables, return in this format
+    return `${currentMonth}/${currentDay}/${currentYear}`;
+  }
+
   function initInterfaceBtns() {
     // Event Listener for creating tasks when you click
     createTaskBtn.addEventListener("click", function () {
@@ -72,9 +117,11 @@ const Interface = (function () {
       // generate task id
       let TASK_ID = uuidv4();
 
+      let dueDate = _formatDueDate();
+
       DomModule.addTask(
         titleInput.value,
-        dueDateInput.value,
+        dueDate,
         priorityInput.value,
         TASK_ID
       );
