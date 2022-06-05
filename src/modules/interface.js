@@ -102,6 +102,17 @@ const Interface = (function () {
     return `${currentMonth}/${currentDay}/${currentYear}`;
   }
 
+  // reset inputs after adding project
+  function _resetProjectFields() {
+    projectTitleInput.value = "";
+  }
+
+  // reset inputs after adding task
+  function _resetTaskFields() {
+    titleInput.value = "";
+    priorityInputs.forEach((priorityInput) => (priorityInput.checked = false));
+  }
+
   function initInterfaceBtns() {
     // Event Listener for creating tasks when you click
     createTaskBtn.addEventListener("click", function () {
@@ -135,15 +146,29 @@ const Interface = (function () {
       DomModule.addProject(projectTitleInput.value);
     });
 
+
     // Toggle Create Task Interface appearance
     for (let i = 0; i < toggleTaskInterfaceBtn.length; i++) {
+      // whenever task interface is opened or closed, reset fields
+      toggleTaskInterfaceBtn[i].addEventListener("click", _resetTaskFields);
+
       toggleTaskInterfaceBtn[i].addEventListener(
         "click",
         _toggleCreateTaskInterfaceContainer
       );
     }
+
+
     // Toggle Create Project Interface appearance
     for (let i = 0; i < toggleProjectInterfaceBtn.length; i++) {
+
+
+      // whenever project interface is opened or closed, reset fields
+      toggleProjectInterfaceBtn[i].addEventListener(
+        "click",
+        _resetProjectFields
+      );
+
       toggleProjectInterfaceBtn[i].addEventListener(
         "click",
         _toggleCreateProjectInterfaceContainer
