@@ -6,6 +6,11 @@
   box-sizing: border-box;
 }
 
+:root {
+  --sky-blue: #89abe3ff;
+  --light-blue: #add8e66b;
+}
+
 /* Utility classes */
 
 .d-none {
@@ -20,7 +25,7 @@
 
 .header {
   width: 100%;
-  background: gray;
+  background: var(--sky-blue);
   padding: 2rem;
   display: flex;
   justify-content: space-between;
@@ -46,8 +51,9 @@ body {
 
 .sidebar {
   width: 400px;
-  background-color: rgb(230, 230, 230);
+  /* background-color: rgb(230, 230, 230); */
   padding: 2rem;
+  background-color: var(--light-blue);
 }
 
 #create-project-interface-container {
@@ -83,7 +89,7 @@ body {
 
 .bottom-sidebar-section {
   margin-top: 2rem;
-  background-color: limegreen;
+  /* background-color: limegreen; */
 }
 
 /* for label "Projects" */
@@ -104,10 +110,11 @@ body {
 
 .project:hover {
   cursor: pointer;
+  background-color: var(--sky-blue);
 }
 
 .selected-project {
-  background-color: blue;
+  background-color: var(--sky-blue);
 }
 
 .p-delete-btn {
@@ -141,7 +148,7 @@ body {
 
 /* styling for task */
 .task {
-  background: red;
+  /* background: red; */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -171,14 +178,13 @@ body {
   background-color: darkred;
 }
 
-
 /* project <select> in task interface */
 #project-select {
   padding: 5px;
 }
 
 .task:hover {
-  background: gold;
+  background: var(--sky-blue);
 }
 
 .task-content {
@@ -211,7 +217,7 @@ body {
 .create-task-interface-priority-div > input[type="radio"] {
   height: 25px;
   width: 25px;
-  background-color: green;
+  /* background-color: green; */
 }
 
 .create-task-interface-add-btn {
@@ -224,7 +230,7 @@ main {
 
 #inbox-task-container {
   padding: 2rem;
-  background: purple;
+  /* background: purple; */
   width: 100%;
 }
 

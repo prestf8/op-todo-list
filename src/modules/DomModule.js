@@ -85,11 +85,26 @@ const DomModule = (function () {
     // add project to DOM (to "_projectContainer")
     _projectContainer.appendChild(project);
 
-    // add reupdateTaskSelect
+    _reupdateProjectSelect();
   }
 
-  function _reupdateTaskSelect() {
+  // update project select everytime projects are updated
+  function _reupdateProjectSelect() {
     // loop through storage and assign to select
+    const projectSelect = document.getElementById("project-select");
+
+    // reset html inside of <select> tag
+    projectSelect.innerHTML = "";
+
+    // add default inbox option to select
+    projectSelect.innerHTML += '<option value="inbox">Inbox</option>';
+
+    // add projects to select based on projects stored
+    for (let project of MainStorage.getProjectStorage()) {
+      const name = project.getName();
+      const optionValue = project.getName();
+      projectSelect.innerHTML += `<option value=${optionValue}>${name}</option>`;
+    }
   }
 
   // create delete task button for tasks
@@ -128,7 +143,7 @@ const DomModule = (function () {
       // pass in parent element (corresponding project) to delete it from storage
       MainStorage.deleteProject(e.target.parentElement);
 
-      // add reupdateTaskSelect here
+      _reupdateProjectSelect();
     } else {
       // if element selected IS NOT the delete button (in this case the project element or )
       let project;
