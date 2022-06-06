@@ -84,6 +84,12 @@ const DomModule = (function () {
 
     // add project to DOM (to "_projectContainer")
     _projectContainer.appendChild(project);
+
+    // add reupdateTaskSelect
+  }
+
+  function _reupdateTaskSelect() {
+    // loop through storage and assign to select
   }
 
   // create delete task button for tasks
@@ -121,6 +127,8 @@ const DomModule = (function () {
       e.target.parentElement.remove();
       // pass in parent element (corresponding project) to delete it from storage
       MainStorage.deleteProject(e.target.parentElement);
+
+      // add reupdateTaskSelect here
     } else {
       // if element selected IS NOT the delete button (in this case the project element or )
       let project;

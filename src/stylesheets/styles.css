@@ -171,6 +171,12 @@ body {
   background-color: darkred;
 }
 
+
+/* project <select> in task interface */
+#project-select {
+  padding: 5px;
+}
+
 .task:hover {
   background: gold;
 }
