@@ -11,10 +11,12 @@ const DomModule = (function () {
   // Container that lists all tasks
   const _taskContainer = document.getElementById("inbox-task-container");
 
-  // Container that lists all projects
+  // // Container that lists all projects
   const _projectContainer = document.querySelector(
     ".bottom-sidebar-section > ul"
   );
+
+  const listOfProjects = document.querySelectorAll(".project");
 
   // Container that holds "Inbox"
   const _topSidebarContainer = document.querySelector(".top-sidebar-section");
@@ -86,10 +88,14 @@ const DomModule = (function () {
     const deleteBtn = document.createElement("button");
     deleteBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
     deleteBtn.classList.add("p-delete-btn");
+
     project.appendChild(deleteBtn);
 
     // add project to DOM (to "_projectContainer")
     _projectContainer.appendChild(project);
+
+    // add interactivity and call callback whenever clicking on a project
+    project.addEventListener("click", _checkProjectInteraction);
 
     _reupdateProjectSelect();
   }
@@ -144,50 +150,71 @@ const DomModule = (function () {
 
   // event listener that is called when you click on a project
   function _checkProjectInteraction(e) {
-    e.preventDefault();
-
-    console.log(e.target);
-
-    // when the target clicked is the icon inside of the delete button
-    if (e.target.tagName.toLowerCase() === "path") {
-      // parent element of path would be the delete button; parent element of the delete button would be the corresponding project
-      e.target.parentElement.parentElement.remove();
-      MainStorage.deleteProject(e.target.parentElement);
-      _reupdateProjectSelect();
-    } else if (e.target.classList.contains("p-delete-btn")) {
-      // remove parent element (corresponding project)
-      e.target.parentElement.remove();
-      // pass in parent element (corresponding project) to delete it from storage
-      MainStorage.deleteProject(e.target.parentElement);
-
-      _reupdateProjectSelect();
+    if (
+      e.target.classList.contains("label") ||
+      e.target.classList.contains("project")
+    ) {
+      _highlightProject(this);
     } else {
-      // if element selected IS NOT the delete button (in this case the project element or )
-      let project;
+      // remove project from DOM
+      this.remove();
+      // pass in corresponding project to delete it from storage
+      MainStorage.deleteProject(this);
 
-      // if element selected is the text
-      if (e.target.classList.contains("label")) {
-        project = e.target.parentElement;
-        // console.log("first condition satsified");
-        // if element selected isn't the text
-      } else if (e.target.classList.contains("project")) {
-        project = e.target;
-        // console.log("second condition satsified");
-      }
-
-      // console.log(project);
-
-      _highlightProject(project);
+      _reupdateProjectSelect();
     }
+
+    // // when the target clicked is the icon inside of the delete button
+    // if (e.target.tagName.toLowerCase() === "path") {
+    //   // parent element of path would be the delete button; parent element of the delete button would be the corresponding project
+    //   e.target.parentElement.parentElement.remove();
+    //   MainStorage.deleteProject(e.target.parentElement);
+    //   _reupdateProjectSelect();
+    // } else if (e.target.classList.contains("p-delete-btn")) {
+    //   // remove parent element (corresponding project)
+    //   e.target.parentElement.remove();
+    //   // pass in parent element (corresponding project) to delete it from storage
+    //   MainStorage.deleteProject(e.target.parentElement);
+
+    // console.log("deleteBtn", this.parentElement);
+
+    // // remove parent element (corresponding project)
+    // this.parentElement.remove();
+    // // pass in parent element (corresponding project) to delete it from storage
+    // MainStorage.deleteProject(this.parentElement);
+
+    // _reupdateProjectSelect();
+
+    // //   _reupdateProjectSelect();
+    // // if element selected IS NOT the delete button (in this case the project element or )
+    // let project;
+
+    // // if element selected is the text
+    // if (
+    //   e.target.classList.contains("label") ||
+    //   e.target.classList.contains("project")
+    // ) {
+    //   project = e.target.parentElement;
+    //   // console.log("first condition satsified");
+    //   // if element selected isn't the text
+    // } else if (e.target.classList.contains("project")) {
+    //   project = e.target;
+    //   // console.log("second condition satsified");
+    // }
+
+    // // console.log(project);
   }
 
   // public method to set interactivity of clicking task/project and different parts of them
   function initialization() {
     _taskContainer.addEventListener("click", _checkTaskInteraction);
-    _projectContainer.addEventListener("click", _checkProjectInteraction);
+    // _projectContainer.addEventListener("click", _checkProjectInteraction);
 
-    // so we can select "Inbox" project as well
-    _topSidebarContainer.addEventListener("click", _checkProjectInteraction);
+    // // so we can select "Inbox" project as well
+    // _topSidebarContainer.addEventListener("click", _checkProjectInteraction);
+
+    // "Inbox" project add interactivity to it
+    listOfProjects[0].addEventListener("click", _checkProjectInteraction);
   }
 
   // public method that creates task and adds it to the dom and storage
