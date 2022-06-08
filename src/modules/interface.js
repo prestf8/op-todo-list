@@ -146,7 +146,6 @@ const Interface = (function () {
       DomModule.addProject(projectTitleInput.value);
     });
 
-
     // Toggle Create Task Interface appearance
     for (let i = 0; i < toggleTaskInterfaceBtn.length; i++) {
       // whenever task interface is opened or closed, reset fields
@@ -158,11 +157,8 @@ const Interface = (function () {
       );
     }
 
-
     // Toggle Create Project Interface appearance
     for (let i = 0; i < toggleProjectInterfaceBtn.length; i++) {
-
-
       // whenever project interface is opened or closed, reset fields
       toggleProjectInterfaceBtn[i].addEventListener(
         "click",
@@ -175,7 +171,7 @@ const Interface = (function () {
       );
     }
 
-    DomModule.initButtons();
+    DomModule.initialization();
   }
 
   return { initInterfaceBtns };

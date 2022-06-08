@@ -62,7 +62,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.65);
   z-index: 2;
 }
 
@@ -75,6 +75,10 @@ body {
   transform: translate(-50%, -50%);
   border: 2px solid black;
 }
+
+/* .top-sidebar-section { */
+/* background-color: gold; */
+/* } */
 
 #project-input-name {
   margin-bottom: 1rem;
@@ -130,7 +134,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.65);
   z-index: 2;
 }
 
