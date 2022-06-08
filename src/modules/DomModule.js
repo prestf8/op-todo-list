@@ -12,14 +12,14 @@ const DomModule = (function () {
   const _taskContainer = document.getElementById("inbox-task-container");
 
   // // Container that lists all projects
-  const _projectContainer = document.querySelector(
-    ".bottom-sidebar-section > ul"
-  );
+  const _projectContainer = document.querySelector(".bottom-sidebar-section");
 
   const listOfProjects = document.querySelectorAll(".project");
 
-  // Container that holds "Inbox"
-  const _topSidebarContainer = document.querySelector(".top-sidebar-section");
+  // reference this so we can insert projects before this to the DOM using "insertBefore"
+  const createProjectBtn = document.querySelector(
+    ".toggle-project-interface-btn"
+  );
 
   // Create and setup label
   function _setupLabel(text) {
@@ -91,11 +91,13 @@ const DomModule = (function () {
 
     project.appendChild(deleteBtn);
 
-    // add project to DOM (to "_projectContainer")
-    _projectContainer.appendChild(project);
-
     // add interactivity and call callback whenever clicking on a project
     project.addEventListener("click", _checkProjectInteraction);
+
+    console.log(createProjectBtn);
+
+    // add project to DOM (to "_projectContainer") before the createProjectBtn
+    _projectContainer.insertBefore(project, createProjectBtn);
 
     _reupdateProjectSelect();
   }
@@ -137,6 +139,7 @@ const DomModule = (function () {
     }
   }
 
+  // adds visual depiction of selecting project
   function _highlightProject(selectedProject) {
     // unselect all projects
     const projects = document.querySelectorAll(".project");
@@ -148,72 +151,34 @@ const DomModule = (function () {
     }
   }
 
-  // event listener that is called when you click on a project
+  // callback function that is called when you click on any part of the element
   function _checkProjectInteraction(e) {
+    // if what is clicked on is the text or the project itself then "highlight" the project
     if (
       e.target.classList.contains("label") ||
       e.target.classList.contains("project")
     ) {
+      // pass in project itself which will update visual selections of projects
       _highlightProject(this);
+
+      // this block runs if what is clicked on isn't the text or project, meaning what is clicked on is the delete button
     } else {
       // remove project from DOM
       this.remove();
       // pass in corresponding project to delete it from storage
       MainStorage.deleteProject(this);
 
+      // reupdates project options for select
       _reupdateProjectSelect();
     }
-
-    // // when the target clicked is the icon inside of the delete button
-    // if (e.target.tagName.toLowerCase() === "path") {
-    //   // parent element of path would be the delete button; parent element of the delete button would be the corresponding project
-    //   e.target.parentElement.parentElement.remove();
-    //   MainStorage.deleteProject(e.target.parentElement);
-    //   _reupdateProjectSelect();
-    // } else if (e.target.classList.contains("p-delete-btn")) {
-    //   // remove parent element (corresponding project)
-    //   e.target.parentElement.remove();
-    //   // pass in parent element (corresponding project) to delete it from storage
-    //   MainStorage.deleteProject(e.target.parentElement);
-
-    // console.log("deleteBtn", this.parentElement);
-
-    // // remove parent element (corresponding project)
-    // this.parentElement.remove();
-    // // pass in parent element (corresponding project) to delete it from storage
-    // MainStorage.deleteProject(this.parentElement);
-
-    // _reupdateProjectSelect();
-
-    // //   _reupdateProjectSelect();
-    // // if element selected IS NOT the delete button (in this case the project element or )
-    // let project;
-
-    // // if element selected is the text
-    // if (
-    //   e.target.classList.contains("label") ||
-    //   e.target.classList.contains("project")
-    // ) {
-    //   project = e.target.parentElement;
-    //   // console.log("first condition satsified");
-    //   // if element selected isn't the text
-    // } else if (e.target.classList.contains("project")) {
-    //   project = e.target;
-    //   // console.log("second condition satsified");
-    // }
-
-    // // console.log(project);
   }
 
   // public method to set interactivity of clicking task/project and different parts of them
   function initialization() {
+    // All tasks add interactivity to them by click
     _taskContainer.addEventListener("click", _checkTaskInteraction);
-    // _projectContainer.addEventListener("click", _checkProjectInteraction);
 
-    // // so we can select "Inbox" project as well
-    // _topSidebarContainer.addEventListener("click", _checkProjectInteraction);
-
-    // "Inbox" project add interactivity to it
+    // "Inbox" project add interactivity to it by click
     listOfProjects[0].addEventListener("click", _checkProjectInteraction);
   }
 
