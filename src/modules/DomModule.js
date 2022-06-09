@@ -6,7 +6,7 @@ const DomModule = (function () {
   "use strict";
 
   // store the current project (select other projects to change this variable)
-  const currentProject = "Inbox";
+  let currentProject = "Inbox";
 
   // Container that lists all tasks
   const _taskContainer = document.getElementById("inbox-task-container");
@@ -140,10 +140,16 @@ const DomModule = (function () {
   }
 
   // adds visual depiction of selecting project
-  function _highlightProject(selectedProject) {
+  function _highlightProject(selectedProjectText) {
     // unselect all projects
     const projects = document.querySelectorAll(".project");
     projects.forEach((project) => project.classList.remove("selected-project"));
+
+    const selectedProject = MainStorage.getProjectStorage().filter(
+      (project) => project.getName() === selectedProjectText
+    )[0];
+
+    console.log(selectedProject);
 
     if (!selectedProject.classList.contains("selected-project")) {
       // selects clicked on project
@@ -158,9 +164,10 @@ const DomModule = (function () {
       e.target.classList.contains("label") ||
       e.target.classList.contains("project")
     ) {
-      // pass in project itself which will update visual selections of projects
-      _highlightProject(this);
+      // pass in project name which will update visual selections of projects
+      _highlightProject(this.children[0].textContent);
 
+      currentProject = this.children[0].textContent;
       // this block runs if what is clicked on isn't the text or project, meaning what is clicked on is the delete button
     } else {
       // remove project from DOM
@@ -168,9 +175,14 @@ const DomModule = (function () {
       // pass in corresponding project to delete it from storage
       MainStorage.deleteProject(this);
 
+      currentProject = "Inbox";
+
       // reupdates project options for select
       _reupdateProjectSelect();
     }
+
+    // so currentProject is clicked on project or when delete buton si clicked
+    console.log(currentProject);
   }
 
   // public method to set interactivity of clicking task/project and different parts of them

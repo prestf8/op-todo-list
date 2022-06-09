@@ -1,4 +1,5 @@
 import DomModule from "./DomModule.js";
+import MainStorage from "./MainStorage.js"
 import "../stylesheets/styles.css";
 import { v4 as uuidv4 } from "uuid";
 

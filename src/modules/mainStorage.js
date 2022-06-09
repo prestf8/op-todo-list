@@ -1,7 +1,14 @@
+import Project from "./Project.js";
+
 const MainStorage = (function () {
   "use strict";
   let _storage = [];
   let _projectStorage = [];
+
+  function initialize() {
+    _projectStorage.push(new Project("Inbox"));
+    console.log(_projectStorage);
+  }
 
   // both of these below return both storages
   function getStorage() {
@@ -49,6 +56,7 @@ const MainStorage = (function () {
   }
 
   return {
+    initialize,
     getStorage,
     addTaskToStorage,
     addProjectToStorage,
