@@ -140,16 +140,10 @@ const DomModule = (function () {
   }
 
   // adds visual depiction of selecting project
-  function _highlightProject(selectedProjectText) {
+  function _highlightProject(selectedProject) {
     // unselect all projects
     const projects = document.querySelectorAll(".project");
     projects.forEach((project) => project.classList.remove("selected-project"));
-
-    const selectedProject = MainStorage.getProjectStorage().filter(
-      (project) => project.getName() === selectedProjectText
-    )[0];
-
-    console.log(selectedProject);
 
     if (!selectedProject.classList.contains("selected-project")) {
       // selects clicked on project
@@ -165,17 +159,24 @@ const DomModule = (function () {
       e.target.classList.contains("project")
     ) {
       // pass in project name which will update visual selections of projects
-      _highlightProject(this.children[0].textContent);
+      _highlightProject(this);
 
+      // assign text of selected project to the "currentProject" variable
       currentProject = this.children[0].textContent;
+
       // this block runs if what is clicked on isn't the text or project, meaning what is clicked on is the delete button
     } else {
       // remove project from DOM
       this.remove();
-      // pass in corresponding project to delete it from storage
+      // pass in "corresponding" project to delete it from storage
       MainStorage.deleteProject(this);
 
+      // reset "currentProject" variable to the text of the inbox project
       currentProject = "Inbox";
+
+      // the parameter of this function is the "Inbox" project because it is the first element with the "project" classname
+      // meaning this automatically visually styles the selection of the "Inbox" project once any project is deleted
+      _highlightProject(document.querySelector(".project"));
 
       // reupdates project options for select
       _reupdateProjectSelect();
