@@ -7,7 +7,10 @@ const MainStorage = (function () {
 
   function initialize() {
     _projectStorage.push(new Project("Inbox"));
-    console.log(_projectStorage);
+  }
+
+  function getProjectByName(currentProject) {
+    return _projectStorage.filter((project) => project.getName() === currentProject)[0];
   }
 
   // both of these below return both storages
@@ -56,6 +59,7 @@ const MainStorage = (function () {
   }
 
   return {
+    getProjectByName,
     initialize,
     getStorage,
     addTaskToStorage,

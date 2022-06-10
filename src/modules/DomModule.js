@@ -9,7 +9,7 @@ const DomModule = (function () {
   let currentProject = "Inbox";
 
   // Container that lists all tasks
-  const _taskContainer = document.getElementById("inbox-task-container");
+  const _taskContainer = document.getElementById("task-container");
 
   // // Container that lists all projects
   const _projectContainer = document.querySelector(".bottom-sidebar-section");
@@ -35,8 +35,6 @@ const DomModule = (function () {
   // function that adds task to dom given a name, dueDate, priority value, and id
   function _addTaskToDom(title, dueDate, priority, id) {
     const task = document.createElement("div"); // div element that is going to be appended to DOM
-
-    console.log(priority);
 
     // assign classes to task based on priority input; the css then styles the bar that indicates priority of task
     if (priority === "low") {
@@ -94,8 +92,6 @@ const DomModule = (function () {
     // add interactivity and call callback whenever clicking on a project
     project.addEventListener("click", _checkProjectInteraction);
 
-    console.log(createProjectBtn);
-
     // add project to DOM (to "_projectContainer") before the createProjectBtn
     _projectContainer.insertBefore(project, createProjectBtn);
 
@@ -110,8 +106,7 @@ const DomModule = (function () {
     // reset html inside of <select> tag
     projectSelect.innerHTML = "";
 
-    // add default inbox option to select
-    projectSelect.innerHTML += '<option value="inbox">Inbox</option>';
+    // projectSelect.innerHTML += '<option value="inbox">Inbox</option>';
 
     // add projects to select based on projects stored
     for (let project of MainStorage.getProjectStorage()) {
@@ -151,6 +146,32 @@ const DomModule = (function () {
     }
   }
 
+  function _clearTaskDom() {
+    _taskContainer.innerHTML = "";
+  }
+
+  function _reloadTaskDom() {
+    _clearTaskDom();
+
+    // h2 element that labels what is the current/selected Project
+    _taskContainer.innerHTML += `<h2>${currentProject}</h2>`;
+
+    const selectedProjectObject = MainStorage.getProjectByName(currentProject);
+
+    console.log(selectedProjectObject);
+
+    // obtain all tasks in selected project
+    const tasksInProject = selectedProjectObject.getTasks();
+
+    for (let task of tasksInProject) {
+      const title = task.getTitle();
+      const id = task.getId();
+      const dueDate = task.getdueDate();
+      const priority = task.getPriority();
+      _addTaskToDom(title, dueDate, priority, id);
+    }
+  }
+
   // callback function that is called when you click on any part of the element
   function _checkProjectInteraction(e) {
     // if what is clicked on is the text or the project itself then "highlight" the project
@@ -182,8 +203,7 @@ const DomModule = (function () {
       _reupdateProjectSelect();
     }
 
-    // so currentProject is clicked on project or when delete buton si clicked
-    console.log(currentProject);
+    _reloadTaskDom();
   }
 
   // public method to set interactivity of clicking task/project and different parts of them

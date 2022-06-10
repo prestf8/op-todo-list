@@ -5,6 +5,10 @@ function Project(name) {
   this.getName = function () {
     return this._name;
   };
+
+  this.getTasks = function () {
+    return this._tasks;
+  };
 }
 
 export default Project;
