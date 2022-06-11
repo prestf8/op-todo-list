@@ -15,6 +15,7 @@ const Interface = (function () {
   const titleInput = document.getElementById("title-input");
   const projectTitleInput = document.getElementById("project-input-name");
   const dueDateInput = document.getElementById("due-date-input");
+  const selectedProject = document.getElementById("project-select"); // project from <select> option where tasks are added to
   const priorityInputs = [
     ...document.querySelectorAll('input[name="priority"]'),
   ];
@@ -135,6 +136,7 @@ const Interface = (function () {
         titleInput.value,
         dueDate,
         priorityInput.value,
+        selectedProject.value,
         TASK_ID
       );
     });

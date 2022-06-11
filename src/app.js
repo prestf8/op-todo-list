@@ -8,4 +8,3 @@ import "@fortawesome/fontawesome-free/js/regular";
 import "@fortawesome/fontawesome-free/js/brands";
 
 Interface.initInterfaceBtns();
-mainStorage.initialize();

@@ -1,7 +1,8 @@
-function Task(title, dueDate, priority, id) {
+function Task(title, dueDate, priority, project, id) {
   this._title = title;
   this._dueDate = dueDate;
   this._priority = priority;
+  this._project = project;
   this._id = id;
 
   this.getTitle = function () {
@@ -18,6 +19,10 @@ function Task(title, dueDate, priority, id) {
 
   this.getPriority = function () {
     return this._priority;
+  };
+
+  this.getProject = function () {
+    return this._project;
   };
 }
 

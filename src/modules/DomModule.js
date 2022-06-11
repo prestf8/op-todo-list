@@ -106,7 +106,8 @@ const DomModule = (function () {
     // reset html inside of <select> tag
     projectSelect.innerHTML = "";
 
-    // projectSelect.innerHTML += '<option value="inbox">Inbox</option>';
+    // there is no "Inbox" project in MainStorage's project Storage, therefore we should manually add an option for Inbox
+    projectSelect.innerHTML += '<option value="inbox">Inbox</option>';
 
     // add projects to select based on projects stored
     for (let project of MainStorage.getProjectStorage()) {
@@ -158,15 +159,21 @@ const DomModule = (function () {
 
     const selectedProjectObject = MainStorage.getProjectByName(currentProject);
 
-    console.log(selectedProjectObject);
+    let tasksInProject;
+    // if currentProject becomes "Inbox" (Inbox doesn't exist in the project storage of MainStorage)
+    if (!selectedProjectObject) {
+      // MainStorage task storage is Inbox's task storage, so obtain its tasks from MainStorage
+      tasksInProject = MainStorage.getStorage();
+    } else {
+      // else if current Project isn't inbox and thus exists in the project storage of MainStorage
+      tasksInProject = selectedProjectObject.getTasks();
+    }
 
-    // obtain all tasks in selected project
-    const tasksInProject = selectedProjectObject.getTasks();
-
+    // using the tasks in each storage, add to DOM
     for (let task of tasksInProject) {
       const title = task.getTitle();
       const id = task.getId();
-      const dueDate = task.getdueDate();
+      const dueDate = task.getDueDate();
       const priority = task.getPriority();
       _addTaskToDom(title, dueDate, priority, id);
     }
@@ -216,15 +223,32 @@ const DomModule = (function () {
   }
 
   // public method that creates task and adds it to the dom and storage
-  function addTask(title, dueDate, priority, id) {
+  function addTask(title, dueDate, priority, projectName, id) {
     // create new task object
-    const task = new Task(title, dueDate, priority, id);
+    const task = new Task(title, dueDate, priority, projectName, id);
 
-    // add created task object to storage
+    const projects = MainStorage.getProjectStorage(); // projects
+
+    // if project isn't "Inbox"
+    if (projects.some((project) => project.getName() === projectName)) {
+      // get index of where project lies in the project storage of MainStorage
+      const indexOfProject = projects
+        .map((project) => project.getName())
+        .indexOf(projectName);
+
+      console.log(indexOfProject);
+    }
+    // add to tasks in Project
+
+    // BOTH scenarios add task to storage of Inbox
     MainStorage.addTaskToStorage(task);
 
-    // add task to dom
-    _addTaskToDom(title, dueDate, priority, id);
+    // IF CURRENTPROJECT is the same project as the one you're adding your task to, then add it to the DOM
+    // Exception: "Inbox" project contains all tasks, therefore add it to the DOM if the CURRENTPROJECT is "Inbox"
+    if (currentProject === projectName || currentProject === "Inbox") {
+      // add task to dom
+      _addTaskToDom(title, dueDate, priority, id);
+    }
   }
 
   // public method that creates project and adds it to the dom and storage
