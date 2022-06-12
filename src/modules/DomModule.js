@@ -158,15 +158,19 @@ const DomModule = (function () {
     _taskContainer.innerHTML += `<h2>${currentProject}</h2>`;
 
     const selectedProjectObject = MainStorage.getProjectByName(currentProject);
+    // console.log(selectedProjectObject);
 
     let tasksInProject;
     // if currentProject becomes "Inbox" (Inbox doesn't exist in the project storage of MainStorage)
     if (!selectedProjectObject) {
       // MainStorage task storage is Inbox's task storage, so obtain its tasks from MainStorage
       tasksInProject = MainStorage.getStorage();
+      // console.log(tasksInProject);
     } else {
       // else if current Project isn't inbox and thus exists in the project storage of MainStorage
+      // THIS FUNCTION ISNT WRONG, BUT this._tasks inside of the project is empty
       tasksInProject = selectedProjectObject.getTasks();
+      console.log(tasksInProject);
     }
 
     // using the tasks in each storage, add to DOM
@@ -242,6 +246,8 @@ const DomModule = (function () {
 
     // BOTH scenarios add task to storage of Inbox
     MainStorage.addTaskToStorage(task);
+
+    // ADD TO THE STORAGE OF THE CORRESPONDING TASK
 
     // IF CURRENTPROJECT is the same project as the one you're adding your task to, then add it to the DOM
     // Exception: "Inbox" project contains all tasks, therefore add it to the DOM if the CURRENTPROJECT is "Inbox"
