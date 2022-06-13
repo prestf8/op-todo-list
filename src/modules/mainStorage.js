@@ -16,6 +16,12 @@ const MainStorage = (function () {
     )[0];
   }
 
+  function checkProjectByName(currentProject) {
+    return _projectStorage.some(
+      (project) => project.getName() === currentProject
+    );
+  }
+
   // both of these below return both storages
   function getStorage() {
     return _storage;
@@ -35,15 +41,16 @@ const MainStorage = (function () {
   }
 
   // removes task from "_storage" through id
-  function deleteTask(id) {
+  function deleteTask(name) {
     // obtain storage
     let storage = MainStorage.getStorage();
 
     // using filter we set a new array to "_storage" in which the new array
     // consists of elements that don't have an id equal to the id passed
     _storage = storage.filter((task) => {
-      return task.getId() !== id;
+      return task.getName() !== name;
     });
+
   }
 
   // removes project from "_projectStorage"
@@ -62,6 +69,7 @@ const MainStorage = (function () {
   }
 
   return {
+    checkProjectByName,
     getProjectByName,
     getStorage,
     addTaskToStorage,
