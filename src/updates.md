@@ -3,6 +3,9 @@
 - When you delete a task from inbox, if the same task
   exists in another project it doesn't delete it
 
+  - When you delete a task from a project that isn't from inbox, if the same task
+  exists in "Inbox" delete it 
+
 - The first project of "Inbox" is "hard to delete"
 
 - When you delete a project, the first project

@@ -130,13 +130,26 @@ const DomModule = (function () {
   function _checkTaskInteraction(e) {
     // this block is called if element clicked on is a task delete button
     if (e.target.classList.contains("task-delete-btn")) {
-      // remove parent element (corresponding task)
-      e.target.parentElement.remove();
-
       // deleting task from storage
       const taskContent = e.target.parentElement.children[0];
       const text = taskContent.querySelector(".label").textContent;
       MainStorage.deleteTask(text);
+
+      for (let project of MainStorage.getProjectStorage()) {
+        let correspondingTasks = project.getTasks();
+
+        // if task with same name as one deleted in "Inbox" exists in any other project's storage
+        if (
+          correspondingTasks.some((task) => task.getName() === text) &&
+          currentProject === "Inbox"
+        ) {
+          // remove the task from the corresponding project's storage
+          project.removeTaskByName(text);
+        }
+      }
+
+      // remove parent element (corresponding task)
+      e.target.parentElement.remove();
 
       console.log("storage: ", MainStorage.getStorage());
     }

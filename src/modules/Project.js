@@ -13,6 +13,10 @@ function Project(name) {
   this.addTask = function (task) {
     this._tasks.push(task);
   };
+
+  this.removeTaskByName = function(name) {
+    this._tasks = this._tasks.filter((task) => task.getName() !== name);
+  }
 }
 
 export default Project;
