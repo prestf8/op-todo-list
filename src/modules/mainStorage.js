@@ -54,8 +54,17 @@ const MainStorage = (function () {
 
   // removes project from "_projectStorage"
   function deleteProject(project) {
-    // locate where it is in array
-    const index = _projectStorage.includes(project);
+    // The parameter is a DOM element, we need to convert it to a project
+    const projectName = project.children[0].textContent;
+    const convertedProject = getProjectByName(projectName);
+
+    // locate where it is in array (the index can't be -1 so no need to check)
+    const index = _projectStorage.indexOf(convertedProject);
+
+    // console.log("projectStorage:", _projectStorage);
+    // console.log("project", project);
+
+    // console.log("index:", index);
 
     // use location to remove it from array
     _projectStorage.splice(index, 1);

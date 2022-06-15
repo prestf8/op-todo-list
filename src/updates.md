@@ -1,12 +1,10 @@
 # ISSUES
 
-- When you delete a task from inbox, if the same task
+DONE: When you delete a task from inbox, if the same task
   exists in another project it doesn't delete it
 
-  - When you delete a task from a project that isn't from inbox, if the same task
+DONE: When you delete a task from a project that isn't from inbox, if the same task
   exists in "Inbox" delete it 
-
-- The first project of "Inbox" is "hard to delete"
 
 - When you delete a project, the first project
   replicates all of the tasks from "Inbox"
@@ -14,7 +12,7 @@
 - project "select" html is listing the wrong projects
   (after deleting projects)
 
-- "Inbox" can add tasks of the same name if you add a task with the same name as the task in "Inbox" to another project (solution: make it so that it checks MainStorage for duplicate names)
+DONE: "Inbox" can add tasks of the same name if you add a task with the same name as the task in "Inbox" to another project (solution: make it so that it checks MainStorage for duplicate names)
 
 - can't click on the middle of task delete buttons (bubbling issue again)
 

@@ -255,7 +255,7 @@ const DomModule = (function () {
   // public method that creates task and adds it to the dom and storage
   function addTask(title, dueDate, priority, projectName, id) {
     // checks if there already is a task in "Inbox", if there is then don't create a task
-    // this means that other projects can't have tasks that have the same name
+    // Among all the projects including "Inbox" can there be no task with the same name
     if (MainStorage.checkDuplicateTask(title)) {
       return;
     }
