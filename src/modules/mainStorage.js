@@ -50,7 +50,6 @@ const MainStorage = (function () {
     _storage = storage.filter((task) => {
       return task.getName() !== name;
     });
-
   }
 
   // removes project from "_projectStorage"
@@ -68,7 +67,14 @@ const MainStorage = (function () {
     return !tempNameStorage.includes(name);
   }
 
+  // checks "Inbox" storage to see if the task exists there already; even among projects can't there be tasks with the same names
+  function checkDuplicateTask(name) {
+    const tempNameStorage = _storage.map((task) => task.getName());
+    return tempNameStorage.includes(name);
+  }
+
   return {
+    checkDuplicateTask,
     checkProjectByName,
     getProjectByName,
     getStorage,

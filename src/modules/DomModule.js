@@ -126,6 +126,22 @@ const DomModule = (function () {
     return deleteTaskButton;
   }
 
+  // Removes identical tasks in created projects if the same task is deleted from "Inbox"; passes in name of task
+  function _removeDuplicateTaskInCreatedProjects(name) {
+    for (let project of MainStorage.getProjectStorage()) {
+      let correspondingTasks = project.getTasks();
+
+      // if task with same name as one deleted in "Inbox" exists in any other project's storage
+      if (
+        correspondingTasks.some((task) => task.getName() === name) &&
+        currentProject === "Inbox"
+      ) {
+        // remove the task from the corresponding project's storage
+        project.removeTaskByName(name);
+      }
+    }
+  }
+
   // event listener that is called when you click on a task
   function _checkTaskInteraction(e) {
     // this block is called if element clicked on is a task delete button
@@ -135,18 +151,8 @@ const DomModule = (function () {
       const text = taskContent.querySelector(".label").textContent;
       MainStorage.deleteTask(text);
 
-      for (let project of MainStorage.getProjectStorage()) {
-        let correspondingTasks = project.getTasks();
-
-        // if task with same name as one deleted in "Inbox" exists in any other project's storage
-        if (
-          correspondingTasks.some((task) => task.getName() === text) &&
-          currentProject === "Inbox"
-        ) {
-          // remove the task from the corresponding project's storage
-          project.removeTaskByName(text);
-        }
-      }
+      // Removes identical tasks in created projects if the same task is deleted from "Inbox"
+      _removeDuplicateTaskInCreatedProjects(text);
 
       // remove parent element (corresponding task)
       e.target.parentElement.remove();
@@ -248,6 +254,12 @@ const DomModule = (function () {
 
   // public method that creates task and adds it to the dom and storage
   function addTask(title, dueDate, priority, projectName, id) {
+    // checks if there already is a task in "Inbox", if there is then don't create a task
+    // this means that other projects can't have tasks that have the same name
+    if (MainStorage.checkDuplicateTask(title)) {
+      return;
+    }
+
     // create new task object
     const task = new Task(title, dueDate, priority, projectName, id);
 
