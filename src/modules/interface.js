@@ -177,7 +177,19 @@ const Interface = (function () {
     DomModule.initialization();
   }
 
-  return { initInterfaceBtns };
+    // adds visual depiction of selecting project
+    function highlightProject(selectedProject) {
+      // unselect all projects
+      const projects = document.querySelectorAll(".project");
+      projects.forEach((project) => project.classList.remove("selected-project"));
+  
+      if (!selectedProject.classList.contains("selected-project")) {
+        // selects clicked on project
+        selectedProject.classList.add("selected-project");
+      }
+    }
+
+  return { initInterfaceBtns, highlightProject };
 })();
 
 // function initTaskBtn() {

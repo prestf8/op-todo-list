@@ -1,6 +1,7 @@
 import Task from "./Task.js";
 import MainStorage from "./MainStorage.js";
 import Project from "./Project.js";
+import Interface from "./Interface.js";
 
 const DomModule = (function () {
   "use strict";
@@ -56,6 +57,19 @@ const DomModule = (function () {
     const titleLabel = _setupLabel(title);
     const dueDateLabel = _setupLabel(dueDate);
     const taskDeleteBtn = _createTaskDeleteBtn();
+
+    taskDeleteBtn.addEventListener("click", function (e) {
+      // get label
+      const taskContent = this.parentElement.children[0];
+      const text = taskContent.querySelector(".label").textContent;
+      MainStorage.deleteTask(text);
+
+      // Removes identical tasks in created projects if the same task is deleted from "Inbox"
+      _removeDuplicateTaskInCreatedProjects(text);
+
+      // remove parent element (corresponding task)
+      this.parentElement.remove();
+    });
 
     // append all the created elements and the label container to the DOM
     labelDiv.appendChild(titleLabel);
@@ -142,36 +156,33 @@ const DomModule = (function () {
     }
   }
 
-  // event listener that is called when you click on a task
-  function _checkTaskInteraction(e) {
-    // this block is called if element clicked on is a task delete button
-    if (e.target.classList.contains("task-delete-btn")) {
-      // deleting task from storage
-      const taskContent = e.target.parentElement.children[0];
-      const text = taskContent.querySelector(".label").textContent;
-      MainStorage.deleteTask(text);
+  // OUTDATED: event listener that is called when you click on a task
+  // function _checkTaskInteraction(e) {
+  //   // this block is called if element clicked on is a task delete button
+  //   console.log(e.target);
 
-      // Removes identical tasks in created projects if the same task is deleted from "Inbox"
-      _removeDuplicateTaskInCreatedProjects(text);
+  //   // Delete button is made of up: delete btn, path, and svg
+  //   // Because e.target is equal to whatever it clicks,
+  //   // if it clicks the delete btn, path, and svg it should run this block
+  //   if (
+  //     e.target.classList.contains("task-delete-btn") ||
+  //     e.target.tagName === "svg" ||
+  //     e.target.tagName === "path"
+  //   ) {
+  //     // deleting task from storage
+  //     const taskContent = e.target.parentElement.children[0];
+  //     const text = taskContent.querySelector(".label").textContent;
+  //     MainStorage.deleteTask(text);
 
-      // remove parent element (corresponding task)
-      e.target.parentElement.remove();
+  //     // Removes identical tasks in created projects if the same task is deleted from "Inbox"
+  //     _removeDuplicateTaskInCreatedProjects(text);
 
-      console.log("storage: ", MainStorage.getStorage());
-    }
-  }
+  //     // remove parent element (corresponding task)
+  //     e.target.parentElement.remove();
 
-  // adds visual depiction of selecting project
-  function _highlightProject(selectedProject) {
-    // unselect all projects
-    const projects = document.querySelectorAll(".project");
-    projects.forEach((project) => project.classList.remove("selected-project"));
-
-    if (!selectedProject.classList.contains("selected-project")) {
-      // selects clicked on project
-      selectedProject.classList.add("selected-project");
-    }
-  }
+  //     console.log("storage: ", MainStorage.getStorage());
+  //   }
+  // }
 
   function _clearTaskDom() {
     _taskContainer.innerHTML = "";
@@ -217,7 +228,7 @@ const DomModule = (function () {
       e.target.classList.contains("project")
     ) {
       // pass in project name which will update visual selections of projects
-      _highlightProject(this);
+      Interface.highlightProject(this);
 
       // assign text of selected project to the "currentProject" variable
       currentProject = this.children[0].textContent;
@@ -237,7 +248,7 @@ const DomModule = (function () {
 
       // the parameter of this function is the "Inbox" project because it is the first element with the "project" classname
       // meaning this automatically visually styles the selection of the "Inbox" project once any project is deleted
-      _highlightProject(document.querySelector(".project"));
+      Interface.highlightProject(document.querySelector(".project"));
     }
 
     _reloadTaskDom();
@@ -245,9 +256,6 @@ const DomModule = (function () {
 
   // public method to set interactivity of clicking task/project and different parts of them
   function initialization() {
-    // All tasks add interactivity to them by click
-    _taskContainer.addEventListener("click", _checkTaskInteraction);
-
     // "Inbox" project add interactivity to it by click
     listOfProjects[0].addEventListener("click", _checkProjectInteraction);
   }
