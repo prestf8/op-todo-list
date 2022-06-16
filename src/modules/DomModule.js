@@ -1,13 +1,8 @@
-import Task from "./Task.js";
 import MainStorage from "./MainStorage.js";
-import Project from "./Project.js";
 import Interface from "./Interface.js";
 
 const DomModule = (function () {
   "use strict";
-
-  // store the current project (select other projects to change this variable)
-  let currentProject = "Inbox";
 
   // Container that lists all tasks
   const _taskContainer = document.getElementById("task-container");
@@ -34,7 +29,7 @@ const DomModule = (function () {
   }
 
   // function that adds task to dom given a name, dueDate, priority value, and id
-  function _addTaskToDom(title, dueDate, priority, id) {
+  function addTaskToDom(title, dueDate, priority, id) {
     const task = document.createElement("div"); // div element that is going to be appended to DOM
 
     // assign classes to task based on priority input; the css then styles the bar that indicates priority of task
@@ -58,19 +53,6 @@ const DomModule = (function () {
     const dueDateLabel = _setupLabel(dueDate);
     const taskDeleteBtn = _createTaskDeleteBtn();
 
-    taskDeleteBtn.addEventListener("click", function (e) {
-      // get label
-      const taskContent = this.parentElement.children[0];
-      const text = taskContent.querySelector(".label").textContent;
-      MainStorage.deleteTask(text);
-
-      // Removes identical tasks in created projects if the same task is deleted from "Inbox"
-      _removeDuplicateTaskInCreatedProjects(text);
-
-      // remove parent element (corresponding task)
-      this.parentElement.remove();
-    });
-
     // append all the created elements and the label container to the DOM
     labelDiv.appendChild(titleLabel);
     labelDiv.appendChild(dueDateLabel);
@@ -85,7 +67,7 @@ const DomModule = (function () {
   }
 
   // function that adds project to dom using a name
-  function _addProjectToDom(title) {
+  function addProjectToDom(title) {
     // create project div
     const project = document.createElement("div");
 
@@ -137,23 +119,23 @@ const DomModule = (function () {
     deleteTaskButton.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
     deleteTaskButton.className = "task-delete-btn";
     deleteTaskButton.setAttribute("data-task-btn", true);
+
+    deleteTaskButton.addEventListener("click", function () {
+      // get label
+      const taskContent = this.parentElement.children[0];
+      const text = taskContent.querySelector(".label").textContent;
+
+      // delete task from storage by text
+      MainStorage.deleteTask(text);
+
+      // Removes identical tasks in created project storages if the same task is deleted from "Inbox"
+      MainStorage.removeDuplicateTaskInCreatedProjects(text);
+
+      // remove parent element (corresponding task)
+      this.parentElement.remove();
+    });
+
     return deleteTaskButton;
-  }
-
-  // Removes identical tasks in created projects if the same task is deleted from "Inbox"; passes in name of task
-  function _removeDuplicateTaskInCreatedProjects(name) {
-    for (let project of MainStorage.getProjectStorage()) {
-      let correspondingTasks = project.getTasks();
-
-      // if task with same name as one deleted in "Inbox" exists in any other project's storage
-      if (
-        correspondingTasks.some((task) => task.getName() === name) &&
-        currentProject === "Inbox"
-      ) {
-        // remove the task from the corresponding project's storage
-        project.removeTaskByName(name);
-      }
-    }
   }
 
   // OUTDATED: event listener that is called when you click on a task
@@ -191,6 +173,8 @@ const DomModule = (function () {
   function _reloadTaskDom() {
     _clearTaskDom();
 
+    let currentProject = MainStorage.getCurrentProject();
+
     // h2 element that labels what is the current/selected Project
     _taskContainer.innerHTML += `<h2>${currentProject}</h2>`;
 
@@ -216,7 +200,7 @@ const DomModule = (function () {
       const id = task.getId();
       const dueDate = task.getDueDate();
       const priority = task.getPriority();
-      _addTaskToDom(title, dueDate, priority, id);
+      addTaskToDom(title, dueDate, priority, id);
     }
   }
 
@@ -231,7 +215,7 @@ const DomModule = (function () {
       Interface.highlightProject(this);
 
       // assign text of selected project to the "currentProject" variable
-      currentProject = this.children[0].textContent;
+      MainStorage.setCurrentProject(this.children[0].textContent);
 
       // this block runs if what is clicked on isn't the text or project, meaning what is clicked on is the delete button
     } else {
@@ -244,7 +228,7 @@ const DomModule = (function () {
       _reupdateProjectSelect();
 
       // reset "currentProject" variable to the text of the inbox project
-      currentProject = "Inbox";
+      MainStorage.setCurrentProject("Inbox");
 
       // the parameter of this function is the "Inbox" project because it is the first element with the "project" classname
       // meaning this automatically visually styles the selection of the "Inbox" project once any project is deleted
@@ -256,68 +240,14 @@ const DomModule = (function () {
 
   // public method to set interactivity of clicking task/project and different parts of them
   function initialization() {
-    // "Inbox" project add interactivity to it by click
+    // "Inbox" project add interactivity to it by click (because "Inbox" isn't in the project storage where event listeners are assigned there)
     listOfProjects[0].addEventListener("click", _checkProjectInteraction);
   }
 
-  // public method that creates task and adds it to the dom and storage
-  function addTask(title, dueDate, priority, projectName, id) {
-    // checks if there already is a task in "Inbox", if there is then don't create a task
-    // Among all the projects including "Inbox" can there be no task with the same name
-    if (MainStorage.checkDuplicateTask(title)) {
-      return;
-    }
-
-    // create new task object
-    const task = new Task(title, dueDate, priority, projectName, id);
-
-    const projects = MainStorage.getProjectStorage(); // projects
-
-    // if project isn't "Inbox"
-    if (projects.some((project) => project.getName() === projectName)) {
-      // get index of where project lies in the project storage of MainStorage
-      const indexOfProject = projects
-        .map((project) => project.getName())
-        .indexOf(projectName);
-
-      // ADD TO THE STORAGE OF THE CORRESPONDING TASK
-      projects[indexOfProject].addTask(task);
-    }
-
-    // BOTH scenarios add task to storage of Inbox
-    MainStorage.addTaskToStorage(task);
-
-    // IF CURRENTPROJECT is the same project as the one you're adding your task to, then add it to the DOM
-    // Exception: "Inbox" project contains all tasks, therefore add it to the DOM if the CURRENTPROJECT is "Inbox"
-    if (currentProject === projectName || currentProject === "Inbox") {
-      // add task to dom
-      _addTaskToDom(title, dueDate, priority, id);
-    }
-  }
-
-  // // update: if same task exists in another project and exists in "Inbox", if that task is deleted from "Inbox" the
-  //     // identical task in the other project gets deleted as well
-  //     if (MainStorage.checkProjectByName(currentProject)) {
-  //       console.log(
-  //     }
-
-  // public method that creates project and adds it to the dom and storage
-  function addProject(title) {
-    // if statement that runs only if no other project exists with this title
-    if (MainStorage.checkValidProject(title)) {
-      // create new project
-      const newProject = new Project(title);
-      // add project to storage by passing in project itself
-      MainStorage.addProjectToStorage(newProject);
-      // add project to dom using only title
-      _addProjectToDom(title);
-    }
-  }
-
   return {
+    addProjectToDom,
+    addTaskToDom,
     initialization,
-    addTask,
-    addProject,
   };
 })();
 

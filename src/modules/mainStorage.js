@@ -4,21 +4,30 @@ const MainStorage = (function () {
   "use strict";
   let _storage = [];
   let _projectStorage = [];
+  let _currentProject = "Inbox";
 
   // commented out because supposed to be no "Inbox" project in project Storage
   // function initialize() {
   //   _projectStorage.push(new Project("Inbox"));
   // }
 
-  function getProjectByName(currentProject) {
+  function getCurrentProject() {
+    return _currentProject;
+  }
+
+  function setCurrentProject(newProject) {
+    _currentProject = newProject;
+  }
+
+  function getProjectByName() {
     return _projectStorage.filter(
-      (project) => project.getName() === currentProject
+      (project) => project.getName() === _currentProject
     )[0];
   }
 
-  function checkProjectByName(currentProject) {
+  function checkProjectByName() {
     return _projectStorage.some(
-      (project) => project.getName() === currentProject
+      (project) => project.getName() === _currentProject
     );
   }
 
@@ -82,7 +91,26 @@ const MainStorage = (function () {
     return tempNameStorage.includes(name);
   }
 
+  // Removes identical tasks in created projects if the same task is deleted from "Inbox"; passes in name of task
+  function removeDuplicateTaskInCreatedProjects(name) {
+    for (let project of MainStorage.getProjectStorage()) {
+      let correspondingTasks = project.getTasks();
+
+      // if task with same name as one deleted in "Inbox" exists in any other project's storage
+      if (
+        correspondingTasks.some((task) => task.getName() === name) &&
+        _currentProject === "Inbox"
+      ) {
+        // remove the task from the corresponding project's storage
+        project.removeTaskByName(name);
+      }
+    }
+  }
+
   return {
+    getCurrentProject,
+    setCurrentProject,
+    removeDuplicateTaskInCreatedProjects,
     checkDuplicateTask,
     checkProjectByName,
     getProjectByName,

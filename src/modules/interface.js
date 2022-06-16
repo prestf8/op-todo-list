@@ -1,5 +1,7 @@
 import DomModule from "./DomModule.js";
-import MainStorage from "./MainStorage.js"
+import MainStorage from "./MainStorage.js";
+import Task from "./Task.js";
+import Project from "./Project.js";
 import "../stylesheets/styles.css";
 import { v4 as uuidv4 } from "uuid";
 
@@ -132,7 +134,7 @@ const Interface = (function () {
 
       let dueDate = _formatDueDate();
 
-      DomModule.addTask(
+      addTask(
         titleInput.value,
         dueDate,
         priorityInput.value,
@@ -146,7 +148,7 @@ const Interface = (function () {
       // close create project interface after pressing the button to create the project
       _toggleCreateProjectInterfaceContainer();
 
-      DomModule.addProject(projectTitleInput.value);
+      addProject(projectTitleInput.value);
     });
 
     // Toggle Create Task Interface appearance
@@ -177,19 +179,79 @@ const Interface = (function () {
     DomModule.initialization();
   }
 
-    // adds visual depiction of selecting project
-    function highlightProject(selectedProject) {
-      // unselect all projects
-      const projects = document.querySelectorAll(".project");
-      projects.forEach((project) => project.classList.remove("selected-project"));
-  
-      if (!selectedProject.classList.contains("selected-project")) {
-        // selects clicked on project
-        selectedProject.classList.add("selected-project");
-      }
+  // adds visual depiction of selecting project
+  function highlightProject(selectedProject) {
+    // unselect all projects
+    const projects = document.querySelectorAll(".project");
+    projects.forEach((project) => project.classList.remove("selected-project"));
+
+    if (!selectedProject.classList.contains("selected-project")) {
+      // selects clicked on project
+      selectedProject.classList.add("selected-project");
+    }
+  }
+
+  // public method that creates task and adds it to the dom and storage
+  function addTask(title, dueDate, priority, projectName, id) {
+    // checks if there already is a task in "Inbox", if there is then don't create a task
+    // Among all the projects including "Inbox" can there be no task with the same name
+    if (MainStorage.checkDuplicateTask(title)) {
+      return;
     }
 
-  return { initInterfaceBtns, highlightProject };
+    // create new task object
+    const task = new Task(title, dueDate, priority, projectName, id);
+
+    const projects = MainStorage.getProjectStorage(); // projects
+
+    // if project isn't "Inbox"
+    if (projects.some((project) => project.getName() === projectName)) {
+      // get index of where project lies in the project storage of MainStorage
+      const indexOfProject = projects
+        .map((project) => project.getName())
+        .indexOf(projectName);
+
+      // ADD TO THE STORAGE OF THE CORRESPONDING TASK
+      projects[indexOfProject].addTask(task);
+    }
+
+    // BOTH scenarios add task to storage of Inbox
+    MainStorage.addTaskToStorage(task);
+
+    // IF CURRENTPROJECT is the same project as the one you're adding your task to, then add it to the DOM
+    // Exception: "Inbox" project contains all tasks, therefore add it to the DOM if the CURRENTPROJECT is "Inbox"
+    if (
+      MainStorage.getCurrentProject() === projectName ||
+      MainStorage.getCurrentProject() === "Inbox"
+    ) {
+      // add task to dom
+      DomModule.addTaskToDom(title, dueDate, priority, id);
+    }
+  }
+
+  // // update: if same task exists in another project and exists in "Inbox", if that task is deleted from "Inbox" the
+  //     // identical task in the other project gets deleted as well
+  //     if (MainStorage.checkProjectByName(currentProject)) {
+  //       console.log(
+  //     }
+
+  // public method that creates project and adds it to the dom and storage
+  function addProject(title) {
+    // if statement that runs only if no other project exists with this title
+    if (MainStorage.checkValidProject(title)) {
+      // create new project
+      const newProject = new Project(title);
+      // add project to storage by passing in project itself
+      MainStorage.addProjectToStorage(newProject);
+      // add project to dom using only title
+      DomModule.addProjectToDom(title);
+    }
+  }
+
+  return {
+    initInterfaceBtns,
+    highlightProject,
+  };
 })();
 
 // function initTaskBtn() {
