@@ -13,8 +13,8 @@ DONE: "Inbox" can add tasks of the same name if you add a task with the same nam
 
 DONE: can't click on the middle of task delete buttons (bubbling issue again)
 
-- When any project has identical tasks to "Inbox", and you delete tasks from that particular project, and navigate to
-  "Inbox" and back, it refills with the tasks that were deleted before
+
+- When you delete a task from a project, navigate to another project, and come back to the original project the "deleted" task reappears
 
 # ADDITIONS
 

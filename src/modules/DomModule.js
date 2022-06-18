@@ -125,11 +125,16 @@ const DomModule = (function () {
       const taskContent = this.parentElement.children[0];
       const text = taskContent.querySelector(".label").textContent;
 
-      // delete task from storage by text
+      // Regardless of the current project, any identical task in "Inbox" gets deleted as well
       MainStorage.deleteTask(text);
 
-      // Removes identical tasks in created project storages if the same task is deleted from "Inbox"
-      MainStorage.removeDuplicateTaskInCreatedProjects(text);
+      // Check and delete identical tasks in other projects if you delete a task from "Inbox" project
+      if (MainStorage.getCurrentProject() === "Inbox") {
+        // identical tasks in other projects if same task is deleted from "Inbox"
+        MainStorage.removeDuplicateTaskInCreatedProjects(text);
+      } else { // this block runs when the current project is not "Inbox" and thus you are removing a task from these projects
+        MainStorage.getProjectByName().removeTaskByName(text);
+      }
 
       // remove parent element (corresponding task)
       this.parentElement.remove();
@@ -178,7 +183,7 @@ const DomModule = (function () {
     // h2 element that labels what is the current/selected Project
     _taskContainer.innerHTML += `<h2>${currentProject}</h2>`;
 
-    const selectedProjectObject = MainStorage.getProjectByName(currentProject);
+    const selectedProjectObject = MainStorage.getProjectByName();
     // console.log(selectedProjectObject);
 
     let tasksInProject;
@@ -186,12 +191,12 @@ const DomModule = (function () {
     if (!selectedProjectObject) {
       // MainStorage task storage is Inbox's task storage, so obtain its tasks from MainStorage
       tasksInProject = MainStorage.getStorage();
-      // console.log(tasksInProject);
+      console.log("Inbox:", tasksInProject);
     } else {
       // else if current Project isn't inbox and thus exists in the project storage of MainStorage
       // THIS FUNCTION ISNT WRONG, BUT this._tasks inside of the project is empty
       tasksInProject = selectedProjectObject.getTasks();
-      console.log(tasksInProject);
+      console.log("Any other project:", tasksInProject);
     }
 
     // using the tasks in each storage, add to DOM
