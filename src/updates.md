@@ -13,13 +13,18 @@ DONE: "Inbox" can add tasks of the same name if you add a task with the same nam
 
 DONE: can't click on the middle of task delete buttons (bubbling issue again)
 
-
-- When you delete a task from a project, navigate to another project, and come back to the original project the "deleted" task reappears
+DONE: When you delete a task from a project, navigate to another project, and come back to the original project the "deleted" task reappears
 
 # ADDITIONS
 
+REQUIRED
+
+DONE: set task to completed
+
+- localStorage
+
+RECOMMENDED
+
 - Improve UI appearance
 - When adding a task with the same name, put an warning that you can't do that
-- set task to completed
 - "Enter" and "Escape" keys for creating tasks/projects
-- localStorage

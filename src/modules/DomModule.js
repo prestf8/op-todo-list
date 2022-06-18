@@ -28,6 +28,38 @@ const DomModule = (function () {
     return label;
   }
 
+  // Setup the checkbox button that indicates whether a task has been completed or not
+  function _setupTodoCompleteButton() {
+    let todoCompleteBtn = document.createElement("input");
+    todoCompleteBtn.setAttribute("type", "checkbox");
+
+    todoCompleteBtn.addEventListener("click", function (e) {
+      // get the label container of the corresponding task
+      let correspondingTaskContent =
+        this.parentElement.querySelector(".task-content");
+
+      // selecting title/name label of task
+      let taskNameLabel = correspondingTaskContent.children[0];
+
+      // selecting due date label of task
+      let dueDateLabel = correspondingTaskContent.children[1];
+
+      // selecting delete button of task
+      let deleteBtn = this.parentElement.querySelector(".task-delete-btn");
+
+      // title/name label of task toggles strikethrough through it, and gray it out
+      taskNameLabel.classList.toggle("task-completed-strikethrough");
+      taskNameLabel.classList.toggle("task-completed-gray");
+
+      // gray out title/name label, due date label, and delete button
+      dueDateLabel.classList.toggle("task-completed-gray");
+
+      // gray out delete button of task
+      deleteBtn.classList.toggle("task-completed-gray");
+    });
+    return todoCompleteBtn;
+  }
+
   // function that adds task to dom given a name, dueDate, priority value, and id
   function addTaskToDom(title, dueDate, priority, id) {
     const task = document.createElement("div"); // div element that is going to be appended to DOM
@@ -49,11 +81,13 @@ const DomModule = (function () {
     labelDiv.classList.add("task-content");
 
     // create all the elements in the task
+    const todoCompleteBtn = _setupTodoCompleteButton();
     const titleLabel = _setupLabel(title);
     const dueDateLabel = _setupLabel(dueDate);
     const taskDeleteBtn = _createTaskDeleteBtn();
 
     // append all the created elements and the label container to the DOM
+    task.appendChild(todoCompleteBtn);
     labelDiv.appendChild(titleLabel);
     labelDiv.appendChild(dueDateLabel);
     task.appendChild(labelDiv);
@@ -132,7 +166,8 @@ const DomModule = (function () {
       if (MainStorage.getCurrentProject() === "Inbox") {
         // identical tasks in other projects if same task is deleted from "Inbox"
         MainStorage.removeDuplicateTaskInCreatedProjects(text);
-      } else { // this block runs when the current project is not "Inbox" and thus you are removing a task from these projects
+      } else {
+        // this block runs when the current project is not "Inbox" and thus you are removing a task from these projects
         MainStorage.getProjectByName().removeTaskByName(text);
       }
 

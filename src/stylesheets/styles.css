@@ -9,9 +9,19 @@
 :root {
   --sky-blue: #89abe3ff;
   --light-blue: #add8e66b;
+  --text-color: rgb(31, 29, 29);
 }
 
 /* Utility classes */
+
+.task-completed-strikethrough {
+  text-decoration: line-through;
+}
+
+.task-completed-gray {
+  opacity: 0.8;
+  color: rgb(51, 49, 49);
+}
 
 .d-none {
   display: none !important;
@@ -158,6 +168,7 @@ body {
   justify-content: space-between;
   padding: 0.4rem 0.3rem 0.4rem 1.2rem;
   position: relative;
+  color: var(--text-color);
 }
 
 /* To style the bar that indicates priority of task */
