@@ -11,6 +11,26 @@ const MainStorage = (function () {
   //   _projectStorage.push(new Project("Inbox"));
   // }
 
+  // writes to the local storage where property is assigned to all "Inbox" tasks"
+  function _writeToLSTasks() {
+    localStorage.setItem("tasks", JSON.stringify(getStorage()));
+  }
+  
+  // writes to the local storage where property is assigned to all "Inbox" tasks"
+  function _writeToLSProjects() {
+    localStorage.setItem("projects", JSON.stringify(getProjectStorage()));
+  }
+
+  // this is run when the app starts; this updates the local Storage of tasks and projects right when the user is
+  // about to exit the app or reload the app
+  function initializeLSUpdater() {
+    window.addEventListener("beforeunload", function() {
+      _writeToLSTasks();
+      _writeToLSProjects();
+    })
+  }
+
+
   function getCurrentProject() {
     return _currentProject;
   }
@@ -108,6 +128,7 @@ const MainStorage = (function () {
   }
 
   return {
+    initializeLSUpdater,
     getCurrentProject,
     setCurrentProject,
     removeDuplicateTaskInCreatedProjects,

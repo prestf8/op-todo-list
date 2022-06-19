@@ -226,12 +226,12 @@ const DomModule = (function () {
     if (!selectedProjectObject) {
       // MainStorage task storage is Inbox's task storage, so obtain its tasks from MainStorage
       tasksInProject = MainStorage.getStorage();
-      console.log("Inbox:", tasksInProject);
+      // console.log("Inbox:", tasksInProject);
     } else {
       // else if current Project isn't inbox and thus exists in the project storage of MainStorage
       // THIS FUNCTION ISNT WRONG, BUT this._tasks inside of the project is empty
       tasksInProject = selectedProjectObject.getTasks();
-      console.log("Any other project:", tasksInProject);
+      // console.log("Any other project:", tasksInProject);
     }
 
     // using the tasks in each storage, add to DOM

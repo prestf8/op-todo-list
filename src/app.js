@@ -6,5 +6,11 @@ import "@fortawesome/fontawesome-free/js/fontawesome";
 import "@fortawesome/fontawesome-free/js/solid";
 import "@fortawesome/fontawesome-free/js/regular";
 import "@fortawesome/fontawesome-free/js/brands";
+import MainStorage from "./modules/MainStorage.js";
 
-Interface.initInterfaceBtns();
+if (!localStorage.getItem("tasks")) {
+  Interface.initInterfaceBtns();
+  console.log("true");
+} else {
+  MainStorage.initializeLSUpdater();
+}
