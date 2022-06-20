@@ -15,7 +15,7 @@ const MainStorage = (function () {
   function _writeToLSTasks() {
     localStorage.setItem("tasks", JSON.stringify(getStorage()));
   }
-  
+
   // writes to the local storage where property is assigned to all "Inbox" tasks"
   function _writeToLSProjects() {
     localStorage.setItem("projects", JSON.stringify(getProjectStorage()));
@@ -24,12 +24,11 @@ const MainStorage = (function () {
   // this is run when the app starts; this updates the local Storage of tasks and projects right when the user is
   // about to exit the app or reload the app
   function initializeLSUpdater() {
-    window.addEventListener("beforeunload", function() {
+    window.addEventListener("beforeunload", function () {
       _writeToLSTasks();
       _writeToLSProjects();
-    })
+    });
   }
-
 
   function getCurrentProject() {
     return _currentProject;
@@ -101,8 +100,12 @@ const MainStorage = (function () {
 
   // checks if there is already a project with the same name in "_projectStorage"
   function checkValidProject(name) {
-    const tempNameStorage = _projectStorage.map((project) => project.getName());
-    return !tempNameStorage.includes(name);
+    // const tempNameStorage = _projectStorage.map((project) => project.getName());
+    // return !tempNameStorage.includes(name);
+
+    const tempNameStorage = JSON.parse(localStorage.getItem("projects"));
+    let listOfProjectNames = Object.keys(tempNameStorage);
+    console.log(listOfProjectNames);
   }
 
   // checks "Inbox" storage to see if the task exists there already; even among projects can't there be tasks with the same names
