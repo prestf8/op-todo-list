@@ -59,11 +59,12 @@ const MainStorage = (function () {
     return _projectStorage;
   }
 
-  // both of these below add either a task or project to the storages
+  // adds task to storage
   function addTaskToStorage(task) {
     _storage.push(task);
   }
 
+  // adds project to project storage
   function addProjectToStorage(project) {
     _projectStorage.push(project);
   }
