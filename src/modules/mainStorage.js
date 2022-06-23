@@ -101,12 +101,12 @@ const MainStorage = (function () {
 
   // checks if there is already a project with the same name in "_projectStorage"
   function checkValidProject(name) {
-    // const tempNameStorage = _projectStorage.map((project) => project.getName());
-    // return !tempNameStorage.includes(name);
+    const tempNameStorage = _projectStorage.map((project) => project.getName());
+    return !tempNameStorage.includes(name);
 
-    const tempNameStorage = JSON.parse(localStorage.getItem("projects"));
-    let listOfProjectNames = Object.keys(tempNameStorage);
-    console.log(listOfProjectNames);
+    // const tempNameStorage = JSON.parse(localStorage.getItem("projects"));
+    // let listOfProjectNames = Object.keys(tempNameStorage);
+    // console.log(listOfProjectNames);
   }
 
   // checks "Inbox" storage to see if the task exists there already; even among projects can't there be tasks with the same names

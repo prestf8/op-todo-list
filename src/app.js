@@ -1,12 +1,11 @@
 import Interface from "./modules/Interface.js";
-import mainStorage from "./modules/MainStorage.js";
+import MainStorage from "./modules/MainStorage.js";
 
 // fontawesome
 import "@fortawesome/fontawesome-free/js/fontawesome";
 import "@fortawesome/fontawesome-free/js/solid";
 import "@fortawesome/fontawesome-free/js/regular";
 import "@fortawesome/fontawesome-free/js/brands";
-import MainStorage from "./modules/MainStorage.js";
 
 // if (localStorage.getItem("tasks")) {
 
@@ -14,14 +13,14 @@ import MainStorage from "./modules/MainStorage.js";
 //   console.log(projects);
 // }
 
-const tasksOnLS = JSON.parse(localStorage.getItem("tasks"));
-const projectsOnLS = JSON.parse(localStorage.getItem("projects"));
+// const tasksOnLS = JSON.parse(localStorage.getItem("tasks"));
+// const projectsOnLS = JSON.parse(localStorage.getItem("projects"));
 
-if (tasksOnLS) {
-  console.log(tasksOnLS);
-  tasksOnLS.forEach((task) => MainStorage.addTaskToStorage(task));
-  projectsOnLS.forEach((project) => MainStorage.addProjectToStorage(project));
-}
+// if (tasksOnLS) {
+//   console.log(tasksOnLS);
+//   tasksOnLS.forEach((task) => MainStorage.addTaskToStorage(task));
+//   projectsOnLS.forEach((project) => MainStorage.addProjectToStorage(project));
+// }
 
-MainStorage.initializeLSUpdater();
+// MainStorage.initializeLSUpdater();
 Interface.initInterfaceBtns();

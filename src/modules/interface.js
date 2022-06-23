@@ -120,6 +120,7 @@ const Interface = (function () {
   function initInterfaceBtns() {
     // Event Listener for creating tasks when you click
     createTaskBtn.addEventListener("click", function () {
+      console.log("task btn works");
       // obtain value of priority radio buttons
       const priorityInput = _selectPriorityInput();
 
@@ -145,6 +146,8 @@ const Interface = (function () {
 
     // Event Listener for creating projects
     createProjectBtn.addEventListener("click", function () {
+      console.log("project btn works");
+
       // close create project interface after pressing the button to create the project
       _toggleCreateProjectInterfaceContainer();
 
@@ -238,7 +241,9 @@ const Interface = (function () {
   // public method that creates project and adds it to the dom and storage
   function addProject(title) {
     // if statement that runs only if no other project exists with this title
+
     if (MainStorage.checkValidProject(title)) {
+      console.log("checkvalid");
       // create new project
       const newProject = new Project(title);
       // add project to storage by passing in project itself
