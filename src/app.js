@@ -13,16 +13,13 @@ import "@fortawesome/fontawesome-free/js/brands";
 //   console.log(projects);
 // }
 
-const tasksOnLS = JSON.parse(localStorage.getItem("tasks"));
-const projectsOnLS = JSON.parse(localStorage.getItem("projects"));
+// let tasksOnLS = JSON.parse(localStorage.getItem("tasks"));
+// let projectsOnLS = JSON.parse(localStorage.getItem("projects"));
 
-console.log("tasksOnLS", tasksOnLS);
-console.log("projectsOnLS", projectsOnLS);
-
-if (tasksOnLS) {
-  tasksOnLS.forEach((task) => MainStorage.addTaskToStorage(task));
-  projectsOnLS.forEach((project) => MainStorage.addProjectToStorage(project));
-}
+// if (tasksOnLS) {
+//   tasksOnLS.forEach((task) => MainStorage.addTaskToStorage(task));
+//   projectsOnLS.forEach((project) => MainStorage.addProjectToStorage(project));
+// }
 
 MainStorage.initializeLSUpdater();
 Interface.initInterfaceBtns();

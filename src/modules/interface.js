@@ -202,7 +202,6 @@ const Interface = (function () {
     // create new task object
     const task = new Task(title, dueDate, priority, projectName, id);
 
-
     const projects = MainStorage.getProjectStorage(); // projects
 
     // if project isn't "Inbox"
