@@ -7,19 +7,14 @@ import "@fortawesome/fontawesome-free/js/solid";
 import "@fortawesome/fontawesome-free/js/regular";
 import "@fortawesome/fontawesome-free/js/brands";
 
-// if (localStorage.getItem("tasks")) {
+let tasksOnLS = JSON.parse(localStorage.getItem("tasks"));
+let projectsOnLS = JSON.parse(localStorage.getItem("projects"));
 
-//   const projects = JSON.parse(localStorage.getItem("projects"));
-//   console.log(projects);
-// }
-
-// let tasksOnLS = JSON.parse(localStorage.getItem("tasks"));
-// let projectsOnLS = JSON.parse(localStorage.getItem("projects"));
-
-// if (tasksOnLS) {
-//   tasksOnLS.forEach((task) => MainStorage.addTaskToStorage(task));
-//   projectsOnLS.forEach((project) => MainStorage.addProjectToStorage(project));
-// }
+if (tasksOnLS || projectsOnLS) {
+  console.log("work?");
+  tasksOnLS.forEach((task) => console.log(task));
+  projectsOnLS.forEach((project) => console.log(project));
+}
 
 MainStorage.initializeLSUpdater();
 Interface.initInterfaceBtns();

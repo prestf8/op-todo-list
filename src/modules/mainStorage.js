@@ -11,22 +11,34 @@ const MainStorage = (function () {
   //   _projectStorage.push(new Project("Inbox"));
   // }
 
-  // writes to the local storage where property is assigned to all "Inbox" tasks"
+  // writes to the local storage where property is assigned to all "Inbox" tasks
   function _writeToLSTasks() {
-    localStorage.setItem("tasks", JSON.stringify(getStorage()));
-    // let filteredStorage = [];
+    // storing tasks as literary objects into localStorage
+    let literaryObjTasks = [];
 
-    // for (const task of _storage) {
-    //   const filteredTask = {
-
-    //   }
-    //   filteredStorage.push(
-    // }
+    for (let task of getStorage()) {
+      literaryObjTasks.push({
+        name: task.getName(),
+        dueDate: task.getDueDate(),
+        priority: task.getPriority(),
+        project: task.getProject(),
+        id: task.getId(),
+      });
+    }
+    localStorage.setItem("tasks", JSON.stringify(literaryObjTasks));
   }
 
-  // writes to the local storage where property is assigned to all "Inbox" tasks"
+  // writes to the local storage where property is assigned to all projects
   function _writeToLSProjects() {
-    localStorage.setItem("projects", JSON.stringify(getProjectStorage()));
+    // storing projects as literary objects into localStorage
+    let literaryObjProjects = [];
+
+    for (let project of getProjectStorage()) {
+      literaryObjProjects.push({
+        name: project.getName(),
+      });
+    }
+    localStorage.setItem("projects", JSON.stringify(literaryObjProjects));
   }
 
   // this is run when the app starts; this updates the local Storage of tasks and projects right when the user is
@@ -70,13 +82,13 @@ const MainStorage = (function () {
   // adds task to storage
   function addTaskToStorage(task) {
     _storage.push(task);
-    console.log("_storage: ", _storage);
+    // console.log("_storage: ", _storage);
   }
 
   // adds project to project storage
   function addProjectToStorage(project) {
     _projectStorage.push(project);
-    console.log("_projects: ", _projectStorage);
+    // console.log("_projects: ", _projectStorage);
   }
 
   // removes task from "_storage" through id
@@ -122,9 +134,9 @@ const MainStorage = (function () {
   // checks "Inbox" storage to see if the task exists there already; even among projects can't there be tasks with the same names
   function checkDuplicateTask(name) {
     // const tempNameStorage = _storage.map((task) => task.getName());
-    const tempNameStorage = _storage.forEach((task) =>
-      console.log("indiv task: ", task)
-    ); // fake delete this later
+    // const tempNameStorage = _storage.forEach((task) =>
+    //   console.log("indiv task: ", task)
+    // ); // fake delete this later
     // return tempNameStorage.includes(name);
   }
 
