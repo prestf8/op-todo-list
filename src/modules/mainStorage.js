@@ -58,17 +58,26 @@ const MainStorage = (function () {
     _currentProject = newProject;
   }
 
-  function getProjectByName() {
+  function getProjectByCurrentProject() {
     return _projectStorage.filter(
       (project) => project.getName() === _currentProject
     )[0];
   }
 
-  function checkProjectByName() {
+  function checkProjectByCurrentProject() {
     return _projectStorage.some(
       (project) => project.getName() === _currentProject
     );
   }
+
+  function getProjectByName(name) {
+    return _projectStorage.filter((project) => project.getName() === name)[0];
+  }
+
+  function checkProjectByName(name) {
+    return _projectStorage.some(
+      (project) => project.getName() === name
+    );  }
 
   // both of these below return both storages
   function getStorage() {
@@ -107,7 +116,7 @@ const MainStorage = (function () {
   function deleteProject(project) {
     // The parameter is a DOM element, we need to convert it to a project
     const projectName = project.children[0].textContent;
-    const convertedProject = getProjectByName(projectName);
+    const convertedProject = getProjectByCurrentProject(projectName);
 
     // locate where it is in array (the index can't be -1 so no need to check)
     const index = _projectStorage.indexOf(convertedProject);
@@ -164,6 +173,8 @@ const MainStorage = (function () {
     checkDuplicateTask,
     checkProjectByName,
     getProjectByName,
+    checkProjectByCurrentProject,
+    getProjectByCurrentProject,
     getStorage,
     addTaskToStorage,
     addProjectToStorage,

@@ -10,28 +10,24 @@ import "@fortawesome/fontawesome-free/js/brands";
 import Project from "./modules/Project.js";
 import Task from "./modules/Task.js";
 
+// Obtaining tasks and projects from local storage (if any)
 let tasksOnLS = JSON.parse(localStorage.getItem("tasks"));
 let projectsOnLS = JSON.parse(localStorage.getItem("projects"));
 
-MainStorage.initializeLSUpdater();
-Interface.initInterfaceBtns();
-
+// Check if there are tasks or projects in local storage and run this block if so
 if (tasksOnLS || projectsOnLS) {
-  // 2. Using these literary objects which are like data, create objects
-  // using the "Task" and "Project" constructors and store them in _storage and
-  // _projectStorage
-  // Note: Create "Project" objects first because when we create the "Task" objects we need to assign each
-  // task into its corresponding project
-  // 3. addProjectToDom(title) and addTaskToDom(title, dueDate, priority, id)
-
+  // Loop through projects from local storage (projects from local storage are literal objects)
   projectsOnLS.forEach((literaryProjectObj) => {
     const nameOfProject = literaryProjectObj.name;
-    const project = new Project(nameOfProject); // literary project object
+
+    const project = new Project(nameOfProject); // Create "Project" object from name
     MainStorage.addProjectToStorage(project); // add "Project" object to storage
-    DomModule.addProjectToDom(nameOfProject);
+    DomModule.addProjectToDom(nameOfProject); // add project to DOM using name
   });
 
+  // Loop through tasks from local storage (tasks from local storage are also stored as literal objects)
   tasksOnLS.forEach((literaryTaskObj) => {
+    // Using the corresponding literary task object, create a "Task" object
     const task = new Task(
       literaryTaskObj.name,
       literaryTaskObj.dueDate,
@@ -39,9 +35,20 @@ if (tasksOnLS || projectsOnLS) {
       literaryTaskObj.project,
       literaryTaskObj.id
     );
+
+    // Store "Task" object into main storage "Inbox" 
     MainStorage.addTaskToStorage(task);
 
-    // readd task to "Inbox" DOM
+    // This block runs if the task's corresponding project exists in the project storage ("Inbox" project isn't in project storage)
+    if (MainStorage.checkProjectByName(literaryTaskObj.project)) {
+      // Obtain corresponding "Project" object of "Task" object
+      let project = MainStorage.getProjectByName(literaryTaskObj.project);
+
+      // read "Task" object into its corresponding "Project" object
+      project.addTask(task);
+    }
+
+    // User's current project is by default "Inbox" when starting the app; Updates "Inbox" DOM
     DomModule.addTaskToDom(
       literaryTaskObj.name,
       literaryTaskObj.dueDate,
@@ -50,6 +57,11 @@ if (tasksOnLS || projectsOnLS) {
     );
   });
 
-  console.log(MainStorage.getProjectStorage());
-  // tasksOnLS.forEach((task) => console.log(task));
+
 }
+
+// Set event listener that updates "tasks" and "projects" keys of local storage when user exits/reloads app
+MainStorage.initializeLSUpdater();
+
+// app initialization
+Interface.initInterfaceBtns();

@@ -156,7 +156,7 @@ const DomModule = (function () {
 
     deleteTaskButton.addEventListener("click", function () {
       // get label
-      const taskContent = this.parentElement.children[0];
+      const taskContent = this.parentElement.children[1];
       const text = taskContent.querySelector(".label").textContent;
 
       // Regardless of the current project, any identical task in "Inbox" gets deleted as well
@@ -168,7 +168,7 @@ const DomModule = (function () {
         MainStorage.removeDuplicateTaskInCreatedProjects(text);
       } else {
         // this block runs when the current project is not "Inbox" and thus you are removing a task from these projects
-        MainStorage.getProjectByName().removeTaskByName(text);
+        MainStorage.getProjectByCurrentProject().removeTaskByName(text);
       }
 
       // remove parent element (corresponding task)
@@ -218,7 +218,7 @@ const DomModule = (function () {
     // h2 element that labels what is the current/selected Project
     _taskContainer.innerHTML += `<h2>${currentProject}</h2>`;
 
-    const selectedProjectObject = MainStorage.getProjectByName();
+    const selectedProjectObject = MainStorage.getProjectByCurrentProject();
     // console.log(selectedProjectObject);
 
     let tasksInProject;
@@ -255,6 +255,7 @@ const DomModule = (function () {
       Interface.highlightProject(this);
 
       // assign text of selected project to the "currentProject" variable
+      // console.log(this.children);
       MainStorage.setCurrentProject(this.children[0].textContent);
 
       // this block runs if what is clicked on isn't the text or project, meaning what is clicked on is the delete button
