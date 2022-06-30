@@ -34,6 +34,13 @@ const Interface = (function () {
     "create-project-interface-container"
   );
 
+  const toggleProjectMenuBtn = document.getElementById(
+    "toggle-project-menu-btn"
+  );
+
+  // sidebar aka project menu
+  const sidebar = document.querySelector(".sidebar");
+
   // check if at least one of the radio buttons when creating a task is selected
   function _selectPriorityInput() {
     const selectedPriorityInput = priorityInputs.filter((priorityInput) => {
@@ -175,6 +182,13 @@ const Interface = (function () {
         _toggleCreateProjectInterfaceContainer
       );
     }
+
+    // btn in header that toggles project menu appearance when screen width is under 600px
+    // this block of code is used to toggle project menu appearance on click
+    toggleProjectMenuBtn.addEventListener("click", function () {
+      // toggling class that causes display: none on sidebar (aka project menu)
+      sidebar.classList.toggle("d-none");
+    });
 
     DomModule.initialization();
   }

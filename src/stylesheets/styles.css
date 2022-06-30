@@ -36,34 +36,49 @@
 .header {
   width: 100%;
   background: var(--sky-blue);
-  padding: 2rem;
+  height: 15vh;
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  padding: 1rem;
 }
 
 .header > h1 {
   font-size: 3rem;
 }
 
+#toggle-project-menu-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+#toggle-project-menu-btn > i {
+  font-size: 3rem;
+}
+
 .main-content-div {
   display: flex;
+  flex-direction: column;
+  height: 85vh;
+  background-color: gray;
 }
 
-.toggle-add-interface-btn {
+.sidebar {
+  width: 100%;
+  padding: 2rem;
+  background-color: red;
+
+  /* change to original later */
+  /* background-color: var(--light-blue); */
 }
 
-body {
+main {
+  flex: 100%;
 }
 
 #title-input {
   height: 1.5rem;
-}
-
-.sidebar {
-  width: 400px;
-  /* background-color: rgb(230, 230, 230); */
-  padding: 2rem;
-  background-color: var(--light-blue);
 }
 
 #create-project-interface-container {
@@ -239,16 +254,28 @@ body {
   margin-top: 1rem;
 }
 
-main {
-  width: 100%;
-}
-
 #task-container {
-  padding: 2rem;
   /* background: purple; */
   width: 100%;
 }
 
 .bottom-sidebar-section > .toggle-project-interface-btn {
   margin-top: 2rem;
+}
+
+@media only screen and (min-width: 600px) {
+  /* if screen is at least 600px then make sidebar and main content adjacent to each other */
+  .main-content-div {
+    flex-direction: row;
+  }
+
+  /* fixed height for sidebar if screen is at least 600px */
+  .sidebar {
+    width: 300px;
+  }
+
+  /* no need for btn that toggles project menu once screen width is larger than 600px */
+  #toggle-project-menu-btn {
+    display: none;
+  }
 }

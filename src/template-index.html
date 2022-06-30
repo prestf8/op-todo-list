@@ -13,11 +13,21 @@
 <body>
     <header class="header">
         <h1>Todo List.</h1>
-        <button class="toggle-task-interface-btn basic-btn">Add task</button>
+        <div>
+            <button class="toggle-task-interface-btn basic-btn">Add task</button>
+            <!-- used to toggle project menu
+            visible when screen width is lower than
+            600px !-->
+            <button id="toggle-project-menu-btn" class="">
+                <i class="fa-solid fa-bars fa-3x"></i>
+            </button>
+
+        </div>
+
     </header>
     <div class="main-content-div">
         <!-- Sidebar on the left -->
-        <nav class="sidebar">
+        <nav class="sidebar d-none">
             <div class="top-sidebar-section">
                 <div class="project selected-project">
                     <li class="label">Inbox</li>
@@ -27,7 +37,7 @@
             <div class="bottom-sidebar-section">
                 <h2>Projects</h2>
 
-                
+
                 <button class="toggle-project-interface-btn basic-btn">Add Project</button>
             </div>
             <!-- Create Project Form -->
