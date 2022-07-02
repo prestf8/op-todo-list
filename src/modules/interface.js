@@ -187,7 +187,14 @@ const Interface = (function () {
     // this block of code is used to toggle project menu appearance on click
     toggleProjectMenuBtn.addEventListener("click", function () {
       // toggling class that causes display: none on sidebar (aka project menu)
-      sidebar.classList.toggle("d-none");
+      let sidebarDisplay = window.getComputedStyle(sidebar).display;
+      if (sidebarDisplay === "block") {
+        console.log("hi");
+        sidebar.style.display = "none";
+      } else if (sidebarDisplay === "none") {
+        console.log("hi2");
+        sidebar.style.display = "block";
+      }
     });
 
     DomModule.initialization();

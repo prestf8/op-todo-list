@@ -76,21 +76,22 @@ const DomModule = (function () {
     // every task gets a class of "task"
     task.classList.add("task");
 
-    // div container to group all the labels
-    const labelDiv = document.createElement("div");
-    labelDiv.classList.add("task-content");
+    // div container to group all the left elements
+    const leftDiv = document.createElement("div");
+    leftDiv.classList.add("task-content");
 
     // create all the elements in the task
     const todoCompleteBtn = _setupTodoCompleteButton();
     const titleLabel = _setupLabel(title);
+    titleLabel.style.marginLeft = "1rem"; // give space to the left of the title
     const dueDateLabel = _setupLabel(dueDate);
     const taskDeleteBtn = _createTaskDeleteBtn();
 
     // append all the created elements and the label container to the DOM
-    task.appendChild(todoCompleteBtn);
-    labelDiv.appendChild(titleLabel);
-    labelDiv.appendChild(dueDateLabel);
-    task.appendChild(labelDiv);
+    leftDiv.appendChild(todoCompleteBtn);
+    leftDiv.appendChild(titleLabel);
+    leftDiv.appendChild(dueDateLabel);
+    task.appendChild(leftDiv);
     task.appendChild(taskDeleteBtn);
 
     // name=id attribute for task;
@@ -116,6 +117,7 @@ const DomModule = (function () {
     const deleteBtn = document.createElement("button");
     deleteBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
     deleteBtn.classList.add("p-delete-btn");
+    deleteBtn.classList.add("delete-btn");
 
     project.appendChild(deleteBtn);
 
@@ -151,7 +153,7 @@ const DomModule = (function () {
   function _createTaskDeleteBtn() {
     const deleteTaskButton = document.createElement("button");
     deleteTaskButton.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
-    deleteTaskButton.className = "task-delete-btn";
+    deleteTaskButton.className = "task-delete-btn delete-btn";
     deleteTaskButton.setAttribute("data-task-btn", true);
 
     deleteTaskButton.addEventListener("click", function () {
@@ -216,7 +218,7 @@ const DomModule = (function () {
     let currentProject = MainStorage.getCurrentProject();
 
     // h2 element that labels what is the current/selected Project
-    _taskContainer.innerHTML += `<h2>${currentProject}</h2>`;
+    _taskContainer.innerHTML += `<h2 id="task-container-project-title">${currentProject}</h2>`;
 
     const selectedProjectObject = MainStorage.getProjectByCurrentProject();
     // console.log(selectedProjectObject);

@@ -12,9 +12,11 @@
 
 <body>
     <header class="header">
-        <h1>Todo List.</h1>
-        <div>
-            <button class="toggle-task-interface-btn basic-btn">Add task</button>
+        <h1>Complex Todo List</h1>
+        <div class="header-right-container">
+            <button id="toggle-task-interface-btn-1" class="toggle-task-interface-btn basic-btn">
+                <i class="fa-solid fa-plus"></i>
+                Task</button>
             <!-- used to toggle project menu
             visible when screen width is lower than
             600px !-->
@@ -27,7 +29,7 @@
     </header>
     <div class="main-content-div">
         <!-- Sidebar on the left -->
-        <nav class="sidebar d-none">
+        <nav class="sidebar">
             <div class="top-sidebar-section">
                 <div class="project selected-project">
                     <li class="label">Inbox</li>
@@ -38,7 +40,10 @@
                 <h2>Projects</h2>
 
 
-                <button class="toggle-project-interface-btn basic-btn">Add Project</button>
+                <button id="toggle-project-interface-btn-1"
+                    class="toggle-project-interface-btn basic-btn">
+                    <i class="fa-solid fa-plus"></i>
+                    Project</button>
             </div>
             <!-- Create Project Form -->
             <div id="create-project-interface-container" class="d-none">
@@ -82,15 +87,15 @@
                             </option>
                         </select>
                     </div>
-                    <button class="create-task-interface-add-btn basic-btn"
-                        id="create-task-btn">Add</button>
+                    <button class="create-task-interface-add-btn basic-btn" id="create-task-btn">Add
+                        Task</button>
                     <button class="toggle-task-interface-btn basic-btn">Close</button>
                 </section>
             </div>
             <!-- Where you put your tasks !-->
             <section id="task-container">
                 <!-- update the text of this when changing projects -->
-                <h2>Inbox</h2>
+                <h2 id="task-container-project-title">Inbox</h2>
             </section>
         </main>
 

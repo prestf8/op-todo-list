@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&display=swap");
+
 *,
 *::before,
 *::after {
@@ -7,9 +10,9 @@
 }
 
 :root {
-  --sky-blue: #89abe3ff;
-  --light-blue: #add8e66b;
-  --text-color: rgb(31, 29, 29);
+  --sky-blue: rgb(57, 124, 231);
+  --light-blue: #79ddff1c;
+  --text-color: rgb(15, 15, 15);
 }
 
 /* Utility classes */
@@ -41,16 +44,32 @@
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
+  color: white;
 }
 
 .header > h1 {
-  font-size: 3rem;
+  font-size: 1.5rem;
+  font-family: "Comfortaa", sans-serif;
+}
+
+.header-right-container {
+  display: flex;
+  align-items: center;
+}
+
+#toggle-task-interface-btn-1 {
+  border: none;
+  font-size: 1rem;
+  background-color: transparent;
+  color: white;
 }
 
 #toggle-project-menu-btn {
-  background-color: transparent;
   border: none;
   cursor: pointer;
+  margin-left: 1rem;
+  color: white;
+  background-color: transparent;
 }
 
 #toggle-project-menu-btn > i {
@@ -61,13 +80,13 @@
   display: flex;
   flex-direction: column;
   height: 85vh;
-  background-color: gray;
+  font-family: "Barlow", sans-serif;
 }
 
 .sidebar {
   width: 100%;
   padding: 2rem;
-  background-color: red;
+  background-color: var(--light-blue);
 
   /* change to original later */
   /* background-color: var(--light-blue); */
@@ -75,6 +94,7 @@
 
 main {
   flex: 100%;
+  padding: 1rem;
 }
 
 #title-input {
@@ -126,10 +146,6 @@ main {
   margin-bottom: 2rem;
 }
 
-/* for Project Container */
-.bottom-sidebar-section > ul {
-}
-
 .project {
   padding: 1rem;
   display: flex;
@@ -139,11 +155,14 @@ main {
 
 .project:hover {
   cursor: pointer;
-  background-color: var(--sky-blue);
+  /* background-color: var(--sky-blue); */
+  background-color: white;
 }
 
 .selected-project {
-  background-color: var(--sky-blue);
+  /* background-color: var(--sky-blue); */
+  background-color: white;
+  font-weight: bold;
 }
 
 .p-delete-btn {
@@ -184,6 +203,7 @@ main {
   padding: 0.4rem 0.3rem 0.4rem 1.2rem;
   position: relative;
   color: var(--text-color);
+  cursor: pointer;
 }
 
 /* To style the bar that indicates priority of task */
@@ -211,10 +231,6 @@ main {
 /* project <select> in task interface */
 #project-select {
   padding: 5px;
-}
-
-.task:hover {
-  background: var(--sky-blue);
 }
 
 .task-content {
@@ -259,19 +275,57 @@ main {
   width: 100%;
 }
 
+#task-container-project-title {
+  margin-bottom: 1rem;
+}
+
 .bottom-sidebar-section > .toggle-project-interface-btn {
   margin-top: 2rem;
 }
 
+/* button that toggles add project interface (the first one) */
+#toggle-project-interface-btn-1 {
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  color: var(--sky-blue);
+}
+
+/* delete buttons for tasks and projects */
+.delete-btn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: var(--sky-blue);
+}
+
 @media only screen and (min-width: 600px) {
+  .header > h1 {
+    font-size: 3rem;
+  }
+
   /* if screen is at least 600px then make sidebar and main content adjacent to each other */
   .main-content-div {
     flex-direction: row;
   }
 
+  #toggle-task-interface-btn-1 {
+    font-size: 1.6rem;
+  }
+
+  #task-container {
+    padding: 2rem 4rem;
+  }
+
   /* fixed height for sidebar if screen is at least 600px */
   .sidebar {
+    display: block !important;
     width: 300px;
+  }
+
+  #task-container-project-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
   }
 
   /* no need for btn that toggles project menu once screen width is larger than 600px */
