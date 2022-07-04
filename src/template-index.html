@@ -48,11 +48,15 @@
             <!-- Create Project Form -->
             <div id="create-project-interface-container" class="d-none">
                 <div id="create-project-interface">
-                    <label for="project-input-name">Name: </label>
-                    <input type="text" id="project-input-name">
-                    <div>
-                        <button class="toggle-project-interface-btn basic-btn">Close</button>
-                        <button id="create-project-btn" class="basic-btn">Add Project</button>
+                    <div id="create-project-interface-top-container">
+                        <label for="project-input-name">Name: </label>
+                        <input type="text" id="project-input-name">
+                    </div>
+                    <div id="create-project-interface-bottom-container">
+                        <button
+                            class="toggle-project-interface-btn basic-btn interface-btn interface-btn-close">Close</button>
+                        <button id="create-project-btn"
+                            class="basic-btn interface-btn interface-btn-add">Add Project</button>
                     </div>
                 </div>
             </div>
@@ -87,9 +91,15 @@
                             </option>
                         </select>
                     </div>
-                    <button class="create-task-interface-add-btn basic-btn" id="create-task-btn">Add
-                        Task</button>
-                    <button class="toggle-task-interface-btn basic-btn">Close</button>
+                    <div id="create-task-interface-container-bottom">
+                        <button
+                            class="toggle-task-interface-btn basic-btn interface-btn interface-btn-close"
+                            id="close-task-interface-btn">Close</button>
+                        <button
+                            class="create-task-interface-add-btn basic-btn interface-btn interface-btn-add"
+                            id="create-task-btn">Add
+                            Task</button>
+                    </div>
                 </section>
             </div>
             <!-- Where you put your tasks !-->

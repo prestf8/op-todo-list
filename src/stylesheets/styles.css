@@ -126,9 +126,12 @@ main {
 /* } */
 
 #project-input-name {
-  margin-bottom: 1rem;
   color: black;
-  padding: 0.5rem 0.8rem;
+  padding: 0.7rem 0.5rem;
+  border-radius: 3px;
+  margin-left: 0.5rem;
+  border: 1px solid black;
+  font-size: 1rem;
 }
 
 .project-label-li {
@@ -183,15 +186,19 @@ main {
 }
 
 #create-task-interface {
-  border: 5px solid orange;
+  /* border: 5px solid var(--sky-blue); */
   border-radius: 5px;
-  background: coral;
+  background: white;
 
   /* position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); */
   padding: 2rem;
+
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 10px;
 }
 
 /* styling for task */
@@ -266,10 +273,6 @@ main {
   /* background-color: green; */
 }
 
-.create-task-interface-add-btn {
-  margin-top: 1rem;
-}
-
 #task-container {
   /* background: purple; */
   width: 100%;
@@ -297,6 +300,42 @@ main {
   background-color: transparent;
   cursor: pointer;
   color: var(--sky-blue);
+}
+
+#create-task-interface-container-bottom {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  grid-column: 1/2;
+}
+
+#create-project-interface-top-container {
+  display: flex;
+  align-items: center;
+}
+
+#create-project-interface-bottom-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.interface-btn {
+  margin-left: 5px;
+  padding: 1rem;
+  font-size: 1rem;
+}
+
+.interface-btn-add {
+  background-color: var(--sky-blue);
+  color: white;
+  border: none;
+}
+
+.interface-btn-close {
+  border: 1px solid gray;
+  background-color: transparent;
+  color: gray;
 }
 
 @media only screen and (min-width: 600px) {
@@ -331,5 +370,13 @@ main {
   /* no need for btn that toggles project menu once screen width is larger than 600px */
   #toggle-project-menu-btn {
     display: none;
+  }
+
+  #create-task-interface {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  #create-task-interface-container-bottom {
+    grid-column: 1/3;
   }
 }
