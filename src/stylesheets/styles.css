@@ -18,12 +18,12 @@
 /* Utility classes */
 
 .task-completed-strikethrough {
-  text-decoration: line-through;
+  text-decoration: line-through !important;
 }
 
 .task-completed-gray {
-  opacity: 0.8;
-  color: rgb(51, 49, 49);
+  opacity: 0.8 !important;
+  color: rgb(51, 49, 49) !important;
 }
 
 .d-none {

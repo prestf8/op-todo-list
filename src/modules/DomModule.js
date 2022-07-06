@@ -36,23 +36,21 @@ const DomModule = (function () {
     todoCompleteBtn.addEventListener("click", function (e) {
       // get the label container of the corresponding task
       let correspondingTaskContent =
-        this.parentElement.querySelector(".task-content");
+        this.parentElement.parentElement.querySelector(".task-content");
 
-      // selecting title/name label of task
-      let taskNameLabel = correspondingTaskContent.children[0];
+      console.log(correspondingTaskContent);
 
-      // selecting due date label of task
-      let dueDateLabel = correspondingTaskContent.children[1];
+      // selecting labels in task toggle their color and strikethrough
+      let taskLabels = correspondingTaskContent.querySelectorAll(".label");
+      taskLabels.forEach((label) => {
+        label.classList.toggle("task-completed-gray");
+        label.classList.toggle("task-completed-strikethrough");
+      });
+
 
       // selecting delete button of task
-      let deleteBtn = this.parentElement.querySelector(".task-delete-btn");
-
-      // title/name label of task toggles strikethrough through it, and gray it out
-      taskNameLabel.classList.toggle("task-completed-strikethrough");
-      taskNameLabel.classList.toggle("task-completed-gray");
-
-      // gray out title/name label, due date label, and delete button
-      dueDateLabel.classList.toggle("task-completed-gray");
+      let deleteBtn =
+        this.parentElement.parentElement.querySelector(".task-delete-btn");
 
       // gray out delete button of task
       deleteBtn.classList.toggle("task-completed-gray");
@@ -158,7 +156,7 @@ const DomModule = (function () {
 
     deleteTaskButton.addEventListener("click", function () {
       // get label
-      const taskContent = this.parentElement.children[1];
+      const taskContent = this.parentElement.parentElement.children[1];
       const text = taskContent.querySelector(".label").textContent;
 
       // Regardless of the current project, any identical task in "Inbox" gets deleted as well
